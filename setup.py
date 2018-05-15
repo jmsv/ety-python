@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 from codecs import open
 from os import path
 
@@ -32,11 +32,11 @@ setup(
         'dev': ['flake8'],
     },
     package_data={
-        'ety': ['package_data.dat'],
+        'ety': ['origins.json'],
     },
     entry_points={
         'console_scripts': [
-            'ety=ety:main',
+            'ety=ety:cli',
         ],
     },
     project_urls={
