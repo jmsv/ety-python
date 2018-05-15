@@ -9,7 +9,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='ety',
-    version='0.0.0',
+    version='0.1.0a1',
     description='find the etymological origins of a word',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -19,8 +19,8 @@ setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
-        # 'Programming Language :: Python :: 2',
-        # 'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
@@ -40,7 +40,7 @@ setup(
         ],
     },
     project_urls={
-        'Bug Reports': 'https://github.com/jmsv/ety-python/issues',
         'Source': 'https://github.com/jmsv/ety-python',
+        'Bug Reports': 'https://github.com/jmsv/ety-python/issues',
     },
 )
