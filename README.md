@@ -37,18 +37,3 @@ Example:
   Spanish, Taino
 ```
 
-#### How it works
-
-_(for reference)_
-
-In `setup.py`, the following few lines tell `setuptools` to set up a cli script called '`ety`' that runs the `cli` method from the `ety` module.
-
-```python
-entry_points={
-    'console_scripts': [
-        'ety=ety:cli',
-    ],
-},
-```
-
-The `cli` method reads in the word as an argument. If no word is specified, the usage instructions and example are displayed
