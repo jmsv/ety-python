@@ -1,6 +1,7 @@
 import sys
 from pkg_resources import resource_filename
 import json
+import random
 
 with open(resource_filename('ety', 'origins.json'), 'r') as f:
     origins_dict = json.load(f)
@@ -32,3 +33,7 @@ def origins(word):
         raise ValueError(error)
 
     return origin
+
+
+def random_word():
+    return random.choice(list(origins_dict.keys()))
