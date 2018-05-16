@@ -35,5 +35,13 @@ def origins(word):
     return origin
 
 
+def words(origin):
+    result = []
+    for word in origins_dict.keys():
+        if origin.lower() in [o.lower() for o in origins_dict[word]]:
+            result.append(word)
+    return result
+
+
 def random_word():
     return random.choice(list(origins_dict.keys()))
