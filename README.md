@@ -55,3 +55,6 @@ Example:
 ### [0.1.0] - 2018/05/15
 - `ety.origins` method takes a word and returns a list of the etymological origins of the word
 - Command line tool: `ety word` lists the origins of 'word'
+
+## Roadmap
+- Support analysis of large amounts of text/files e.g. books
