@@ -1,6 +1,10 @@
 # ety-python
 Python module to find the etymological origins of a word
 
+[![PyPI version](https://badge.fury.io/py/ety.svg)](https://badge.fury.io/py/ety)
+[![Python versions](https://img.shields.io/pypi/pyversions/ety.svg)](https://pypi.python.org/pypi/ety)
+[![Wheel Support](https://img.shields.io/pypi/wheel/ety.svg)](https://pypi.python.org/pypi/ety)
+
 > ___Note:__ this module is under construction and doesn't yet have a large enough dataset to be useful_
 
 ## Install
