@@ -1,0 +1,23 @@
+language: python
+
+python:
+  - "2.7"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "nightly"
+
+matrix:
+  allow_failures:
+    - python: "nightly"
+
+install:
+  - python setup.py install
+
+before_script:
+  - pip install flake8
+
+script:
+  - flake8 .
+  - python tests.py
+
