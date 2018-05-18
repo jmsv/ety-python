@@ -3,8 +3,9 @@ from pkg_resources import resource_filename
 import json
 import random
 
-with open(resource_filename('ety', 'origins.json'), 'r') as f:
-    origins_dict = json.load(f)
+# with open(resource_filename('ety', 'origins.json'), 'r') as f:
+#     origins_dict = json.load(f)
+origins_dict = {}
 
 
 def cli():

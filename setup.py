@@ -9,7 +9,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='ety',
-    version='0.2.0',
+    version='1.0.0',
     description='find the etymological origins of a word',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -33,7 +33,7 @@ setup(
         'dev': ['flake8'],
     },
     package_data={
-        'ety': ['origins.json'],
+        'ety': ['etymwn-eng.tsv', 'iso-639-3.json'],
     },
     entry_points={
         'console_scripts': [
