@@ -1,4 +1,5 @@
 import unittest
+import ety
 
 
 class TestEty(unittest.TestCase):
@@ -8,4 +9,6 @@ class TestEty(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    print(ety.origins('car'))
+    print(ety.random_word())
     unittest.main()

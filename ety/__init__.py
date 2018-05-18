@@ -1,11 +1,8 @@
 import sys
-from pkg_resources import resource_filename
-import json
-import random
+from random import choice
 
-# with open(resource_filename('ety', 'origins.json'), 'r') as f:
-#     origins_dict = json.load(f)
-origins_dict = {}
+from . import data
+data.load()
 
 
 def cli():
@@ -15,34 +12,22 @@ def cli():
         print("Example:\n  $ ety potato\n  Spanish, Taino")
         return
 
-    word = sys.argv[1]
-
-    try:
-        origin = ', '.join(origins(word))
-        print(origin)
-    except ValueError as e:
-        print(str(e))
-    except Exception as e:
-        print(e)
+    # word = sys.argv[1]
+    print('Not yet implemented')
 
 
-def origins(word):
-    try:
-        origin = origins_dict[word]
-    except KeyError:
-        error = "No etymology data available for word: %s" % word
-        raise ValueError(error)
-
-    return origin
-
-
-def words(origin):
+def origins(word, word_lang='eng'):
+    row = list(filter(lambda entry: entry['a_word'] == word and entry['a_lang'] == word_lang, data.etyms))
     result = []
-    for word in origins_dict.keys():
-        if origin.lower() in [o.lower() for o in origins_dict[word]]:
-            result.append(word)
+    for item in row:
+        result.append({
+            'word': item['b_word'],
+            'lang': item['b_lang'],
+        })
     return result
 
 
-def random_word():
-    return random.choice(list(origins_dict.keys()))
+def random_word(lang='eng'):
+    row = list(filter(lambda entry: entry['a_lang'] == lang, data.etyms))
+    word = choice(row)['a_word']
+    return word

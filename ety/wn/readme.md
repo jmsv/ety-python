@@ -1,4 +1,5 @@
 - etymwn-eng.tsv is the etymwn.tsv dataset filtered to lines starting with "eng:"
+- etymwn-relety.tsv is the dataset filtered to lines containing "rel:etymology"
 - iso-639-3.json contains country codes used by the etymwn dataset
 
 Etymological Wordnet 2013-02-08

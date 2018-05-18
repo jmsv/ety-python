@@ -33,7 +33,7 @@ setup(
         'dev': ['flake8'],
     },
     package_data={
-        'ety': ['etymwn-eng.tsv', 'iso-639-3.json'],
+        'ety': ['wn/etymwn-relety.tsv', 'wn/iso-639-3.json'],
     },
     entry_points={
         'console_scripts': [
