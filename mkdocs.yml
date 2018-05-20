@@ -1,0 +1,14 @@
+site_name: ety-python
+site_url: http://ety-python.readthedocs.io
+repo_url: http://github.com/jmsv/ety-python
+site_description: Python module to find the etymological origins of a word
+
+site_author: James Vickery
+
+repo_url: http://github.com/jmsv/ety-python
+
+pages:
+- Home: index.md
+- About:
+    - License: about/license.md
+
