@@ -27,7 +27,7 @@ def prettify_origins(origins_list):
     return '\n'.join(lines)
 
 
-def origins(word: str, word_lang='eng', recursive=False) -> list:
+def origins(word, word_lang='eng', recursive=False):
     row = list(filter(lambda entry: entry['a_word'] == word and entry['a_lang'] == word_lang, data.etyms))
     result = []
     for item in row:
@@ -41,13 +41,13 @@ def origins(word: str, word_lang='eng', recursive=False) -> list:
     return result
 
 
-def lang_name(code: str):
+def lang_name(code):
     for lang in data.langs:
         if lang['iso6393'] == code:
             return lang['name']
 
 
-def random_word(lang: str='eng') -> str:
+def random_word(lang='eng'):
     row = list(filter(lambda entry: entry['a_lang'] == lang, data.etyms))
     word = choice(row)['a_word']
     return word

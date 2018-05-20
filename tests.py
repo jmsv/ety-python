@@ -9,11 +9,9 @@ class TestEty(unittest.TestCase):
 
     def test_lang(self):
         self.assertEqual(ety.lang_name('eng'), 'English')
+        self.assertEqual(ety.lang_name('lat'), 'Latin')
+        self.assertEqual(ety.lang_name('enm'), 'Middle English (1100-1500)')
 
 
 if __name__ == '__main__':
-    print(ety.origins('car'))
-    for origin in (ety.origins('car', recursive=True)):
-        print(ety.lang_name(origin['lang']))
-    print(ety.random_word())
     unittest.main()
