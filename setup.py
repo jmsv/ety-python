@@ -29,6 +29,9 @@ setup(
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.2.*, <4',
     keywords='etymology origins english language words',
     packages=['ety'],
+    install_requires=[
+        "treelib",
+    ],
     extras_require={
         'dev': ['flake8'],
     },

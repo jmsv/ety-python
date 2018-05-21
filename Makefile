@@ -2,6 +2,7 @@ install:
 	python setup.py install
 
 test:
+	flake8
 	python tests.py
 
 clean:
