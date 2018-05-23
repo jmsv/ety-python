@@ -1,7 +1,8 @@
 import sys
 from random import choice
-from treelib import Tree
 from uuid import uuid4
+
+from treelib import Tree
 
 from . import data
 
@@ -67,7 +68,9 @@ def _origins(word, word_lang='eng', recursive=False):
         result.append(Word(item['b_word'], item['b_lang']))
     if recursive:
         for origin in result:
-            result.extend(_origins(origin.word, origin.lang_code))
+            for child in _origins(origin.word, origin.lang_code):
+                if origin.word != child.word:
+                    result.append(child)
     return result
 
 

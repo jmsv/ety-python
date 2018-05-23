@@ -11,6 +11,10 @@ class TestEty(unittest.TestCase):
         o = ety.origins(ety.random_word())
         self.assertGreater(len(o), 0)
 
+    def test_origins_recursion(self):
+        o = ety.origins(ety.random_word(), recursive=True)
+        self.assertGreater(len(o), 0)
+
     def test_lang(self):
         self.assertEqual(ety.lang_name('eng'), 'English')
         self.assertEqual(ety.lang_name('lat'), 'Latin')

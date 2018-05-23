@@ -52,6 +52,15 @@ Example:
 
 ## Changelog
 
+### [1.0.0] - 2018/05/23
+
+#### Added
+- `ety.tree` method takes a word and outputs the word's etymology in a tree format
+
+#### Changed
+- Uses [Etymological Wordnet](http://www1.icsi.berkeley.edu/~demelo/etymwn) data instead of scraped Dictionary.com data
+- `ety.origins` output structure changed
+
 ### [0.2.0] - 2018/05/16
 #### Added
 - `ety.words` method. This acts as a reverse search: given an origin, it will return all of the words from (or partially from) that origin
