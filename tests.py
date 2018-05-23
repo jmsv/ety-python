@@ -17,8 +17,10 @@ class TestEty(unittest.TestCase):
         self.assertEqual(ety.lang_name('enm'), 'Middle English (1100-1500)')
 
     def test_tree(self):
-        tree = ety.tree('aerodynamically')
-        self.assertGreaterEqual(len(str(tree).split('\n')), 10)
+        self.assertGreaterEqual(len(str(
+            ety.tree('aerodynamically')).split('\n')), 10)
+        self.assertGreaterEqual(len(str(
+            ety.tree('fabric')).split('\n')), 4)
 
 
 if __name__ == '__main__':

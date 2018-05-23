@@ -71,13 +71,15 @@ def _origins(word, word_lang='eng', recursive=False):
     return result
 
 
-def _tree(tree_obj, word, parent):
+def _tree(tree_obj, word, parent, parent_word):
     word_origins = _origins(word.word, word_lang=word.lang_code)
     for origin in word_origins:
         key = uuid4()
-        tree_obj.create_node(origin.pretty, key, parent=parent)
         # Recursive call to add child origins
-        _tree(tree_obj, origin, key)
+        if parent_word == origin.word:
+            continue
+        tree_obj.create_node(origin.pretty, key, parent=parent)
+        _tree(tree_obj, origin, key, origin.word)
 
 
 def tree(word, word_lang='eng'):
@@ -91,9 +93,9 @@ def tree(word, word_lang='eng'):
     ety_tree.create_node(root, root_key)
 
     # Add child etymologies
-    _tree(ety_tree, Word(word, word_lang), root_key)
+    _tree(ety_tree, Word(word, word_lang), root_key, word)
 
-    return ety_tree
+    return str(ety_tree)
 
 
 def random_word(lang='eng'):
