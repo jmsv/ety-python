@@ -12,7 +12,8 @@ data.load()
 
 def cli():
     parser = argparse.ArgumentParser()
-    parser.add_argument("word", type=str, help="the search word")
+    parser.add_argument("words", type=str, nargs='+',
+                        help="the search word(s)")
     parser.add_argument("-r", "--recursive", help="search origins recursively",
                         action="store_true")
     parser.add_argument("-t", "--tree", help="display etymology tree",
@@ -20,13 +21,23 @@ def cli():
     args = parser.parse_args()
 
     if args.tree:
-        print(tree(args.word))
+        for word in args.words:
+            word_origins = origins(word, recursive=args.recursive)
+            if not word_origins:
+                print("No origins found for word: '%s'" % word)
+                continue
+            print(tree(word))
         return 0
 
-    lines = []
-    for origin in origins(args.word, recursive=args.recursive):
-        lines.append(prettify_word(origin['word'], origin['lang']['code']))
-    print('\n'.join(lines))
+    for word in args.words:
+        word_origins = origins(word, recursive=args.recursive)
+        if not word_origins:
+            print("No origins found for word: '%s'" % word)
+
+        lines = []
+        for origin in word_origins:
+            lines.append(prettify_word(origin['word'], origin['lang']['code']))
+        print('\n'.join(lines))
 
     return 0
 
