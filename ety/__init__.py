@@ -13,16 +13,14 @@ data.load()
 def cli():
     if len(sys.argv) <= 1:
         print("No word supplied\n")
-        print("Usage:\n  $ ety <word>\n")
-        print("Example:\n  $ ety potato\n  Spanish, Taino")
+        print("Usage:\n  $ ety <words>\n")
+        example = random_word()
+        print("Example:\n  $ ety", example, "\n")
+        print(tree(example))
         return 1
 
-    word = sys.argv[1]
-
-    lines = []
-    for origin in origins(word, recursive=True):
-        lines.append(prettify_word(origin['word'], origin['lang']['code']))
-    print('\n'.join(lines))
+    for word in sys.argv[1:]:
+        print(tree(word))
 
     return 0
 
@@ -105,3 +103,4 @@ def random_word(lang='eng'):
     row = list(filter(lambda entry: entry['a_lang'] == lang, data.etyms))
     word = choice(row)['a_word']
     return word
+
