@@ -10,5 +10,6 @@ repo_url: http://github.com/jmsv/ety-python
 pages:
 - Home: index.md
 - About:
+    - Changelog: about/changelog.md
     - License: about/license.md
 

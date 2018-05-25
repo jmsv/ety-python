@@ -6,8 +6,6 @@ Python module to find the etymological origins of a word
 [![Python versions](https://img.shields.io/pypi/pyversions/ety.svg)](https://pypi.python.org/pypi/ety)
 [![Wheel Support](https://img.shields.io/pypi/wheel/ety.svg)](https://pypi.python.org/pypi/ety)
 
-___Note:__ this module is under construction and doesn't yet have a large enough dataset to be useful_
-
 ## Install
 
 ### [pip](https://pypi.org/project/ety)
@@ -18,8 +16,9 @@ pip install ety
 
 ### Development
 
+In a virtual environment: (Pipenv is recommended)
+
 ```bash
-pipenv shell
 python setup.py install
 ```
 
@@ -31,44 +30,56 @@ python setup.py install
 >>> import ety
 
 >>> ety.origins("potato")
-['Spanish', 'Taino']
+[{'word': 'batata', 'lang': {'code': 'tnq', 'name': 'Taino'}}]
 
->>> ety.origins("abandon")
-['Middle English', 'Middle French', 'Old French']
+>>> ety.origins('drink', recursive=True)
+[{'word': 'drync', 'lang': {'code': 'ang', 'name': 'Old English (ca. 450-1100)'}}, {'word': 'drinken', 'lang': {'code': 'enm', 'name': 'Middle English (1100-1500)'}}, {'word': 'drincan', 'lang': {'code': 'ang', 'name': 'Old English (ca. 450-1100)'}}]
+
+>>> print(ety.tree('aerodynamically'))
+aerodynamically (English)
+├── -ally (English)
+└── aerodynamic (English)
+    ├── aero- (English)
+    │   └── ἀήρ (Ancient Greek (to 1453))
+    └── dynamic (English)
+        └── dynamique (French)
+            └── δυναμικός (Ancient Greek (to 1453))
+                └── δύναμις (Ancient Greek (to 1453))
+                    └── δύναμαι (Ancient Greek (to 1453))
+
 ```
 
 ### CLI
 
-After installing, a command-line tool is also available
+After installing, a command-line tool is also available. `ety -h` outputs the following help text describing arguments:
 
 ```
-Usage:
-  $ ety <word>
+usage: ety [-h] [-r] [-t] word
 
-Example:
-  $ ety potato
-  Spanish, Taino
+positional arguments:
+  word             the search word
+
+optional arguments:
+  -h, --help       show this help message and exit
+  -r, --recursive  search origins recursively
+  -t, --tree       display etymology tree
 ```
 
-## Changelog
+#### Examples:
 
-### [1.0.0] - 2018/05/23
+```
+$ ety drink   # List direct origins of a word
+drync (Old English (ca. 450-1100))
+drinken (Middle English (1100-1500))
 
-#### Added
-- `ety.tree` method takes a word and outputs the word's etymology in a tree format
+$ ety drink -r  # Recursive argument
+drync (Old English (ca. 450-1100))
+drinken (Middle English (1100-1500))
+drincan (Old English (ca. 450-1100))
 
-#### Changed
-- Uses [Etymological Wordnet](http://www1.icsi.berkeley.edu/~demelo/etymwn) data instead of scraped Dictionary.com data
-- `ety.origins` output structure changed
-
-### [0.2.0] - 2018/05/16
-#### Added
-- `ety.words` method. This acts as a reverse search: given an origin, it will return all of the words from (or partially from) that origin
-- `ety.random_word` method returns a random word from the origins data set
-
-### [0.1.0] - 2018/05/15
-- `ety.origins` method takes a word and returns a list of the etymological origins of the word
-- Command line tool: `ety word` lists the origins of 'word'
-
-## Roadmap
-- Support analysis of large amounts of text/files e.g. books
+$ ety drink -t  # Output tree argument
+drink (English)
+├── drinken (Middle English (1100-1500))
+│   └── drincan (Old English (ca. 450-1100))
+└── drync (Old English (ca. 450-1100))
+```
