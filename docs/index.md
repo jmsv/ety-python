@@ -5,6 +5,7 @@ Python module to find the etymological origins of a word
 [![PyPI version](https://badge.fury.io/py/ety.svg)](https://badge.fury.io/py/ety)
 [![Python versions](https://img.shields.io/pypi/pyversions/ety.svg)](https://pypi.python.org/pypi/ety)
 [![Wheel Support](https://img.shields.io/pypi/wheel/ety.svg)](https://pypi.python.org/pypi/ety)
+[![Documentation Status](https://readthedocs.org/projects/ety-python/badge/?version=latest)](https://ety-python.readthedocs.io/en/latest/?badge=latest)
 
 ## Install
 
@@ -83,6 +84,3 @@ drink (English)
 │   └── drincan (Old English (ca. 450-1100))
 └── drync (Old English (ca. 450-1100))
 ```
-
-## Roadmap
-- Support analysis of large amounts of text/files e.g. books
