@@ -12,22 +12,27 @@ data.load()
 
 def cli():
     parser = argparse.ArgumentParser()
-    parser.add_argument("words", type=str, nargs='+', help="the search word")
+    parser.add_argument("words", type=str, nargs='+', help="the search word(s)")
     parser.add_argument("-r", "--recursive", help="search origins recursively",
                         action="store_true")
     parser.add_argument("-t", "--tree", help="display etymology tree",
                         action="store_true")
     args = parser.parse_args()
 
+    # I just want the record to state that I don't like this code and am thinking about how to improve it.
     if args.tree:
         for word in args.words:
+            word_origins = origins(word, recursive=args.recursive)
+            if not word_origins:
+                print("No origins found for word: '%s'" % word)
+                continue
             print(tree(word))
         return 0
 
     for word in args.words:
         word_origins = origins(word, recursive=args.recursive)
         if not word_origins:
-            print("No origins found for word '%s'" % word)
+            print("No origins found for word: '%s'" % word)
 
         lines = []
         for origin in word_origins:
