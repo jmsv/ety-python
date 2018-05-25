@@ -1,4 +1,4 @@
-import sys
+import argparse
 from random import choice
 from uuid import uuid4
 
@@ -11,16 +11,22 @@ data.load()
 
 
 def cli():
-    if len(sys.argv) <= 1:
-        print("No word supplied\n")
-        print("Usage:\n  $ ety <words>\n")
-        example = random_word()
-        print("Example:\n  $ ety", example, "\n")
-        print(tree(example))
-        return 1
+    parser = argparse.ArgumentParser()
+    parser.add_argument("word", type=str, help="the search word")
+    parser.add_argument("-r", "--recursive", help="search origins recursively",
+                        action="store_true")
+    parser.add_argument("-t", "--tree", help="display etymology tree",
+                        action="store_true")
+    args = parser.parse_args()
 
-    for word in sys.argv[1:]:
-        print(tree(word))
+    if args.tree:
+        print(tree(args.word))
+        return 0
+
+    lines = []
+    for origin in origins(args.word, recursive=args.recursive):
+        lines.append(prettify_word(origin['word'], origin['lang']['code']))
+    print('\n'.join(lines))
 
     return 0
 
@@ -60,7 +66,9 @@ def origins(word, word_lang='eng', recursive=False):
 
 
 def _origins(word, word_lang='eng', recursive=False):
-    row = list(filter(lambda entry: entry['a_word'] == word and entry['a_lang'] == word_lang, data.etyms))
+    row = list(filter(
+        lambda entry: entry['a_word'] == word and entry[
+            'a_lang'] == word_lang, data.etyms))
     result = []
     for item in row:
         result.append(Word(item['b_word'], item['b_lang']))
@@ -103,4 +111,3 @@ def random_word(lang='eng'):
     row = list(filter(lambda entry: entry['a_lang'] == lang, data.etyms))
     word = choice(row)['a_word']
     return word
-
