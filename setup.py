@@ -17,7 +17,7 @@ setup(
     author='James Vickery',
     author_email='dev@jamesvickery.net',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
