@@ -1,5 +1,10 @@
 # Changelog
 
+### [1.0.2] - 2018/06/06
+
+#### Bug Fixes
+- [@alxwrd](https://github.com/alxwrd) fixed unspecified encoding Windows bug, see [#16](https://github.com/jmsv/ety-python/pull/16)
+
 ### [1.0.1] - 2018/05/25
 
 #### Changed
