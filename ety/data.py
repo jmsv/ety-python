@@ -23,15 +23,16 @@ def parse_row(data_row):
 def load_relety():
     global etyms
     etyms = []
-    with io.open(resource_filename(
-            'ety', 'wn/etymwn-relety.json'), 'r') as f:
+    resource = resource_filename('ety', 'wn/etymwn-relety.json')
+    with io.open(resource, 'r', encoding='utf-8') as f:
         etyms = json.load(f)
 
 
 def load_country_codes():
     global langs
     langs = []
-    with io.open(resource_filename('ety', 'wn/iso-639-3.json'), 'r') as f:
+    resource = resource_filename('ety', 'wn/iso-639-3.json')
+    with io.open(resource, 'r', encoding='utf-8') as f:
         countries_json = json.load(f)
     for country in countries_json:
         langs.append({
