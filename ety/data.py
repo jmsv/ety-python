@@ -6,17 +6,6 @@ import json
 from pkg_resources import resource_filename
 
 
-def parse_row(data_row):
-    a_lang, a_word = data_row[0].split(': ')
-    b_lang, b_word = data_row[2].split(': ')
-    return {
-        'a_lang': a_lang,
-        'a_word': a_word,
-        'b_lang': b_lang,
-        'b_word': b_word,
-    }
-
-
 def load_relety():
     resource = resource_filename('ety', 'wn/etymwn-relety.json')
     with io.open(resource, 'r', encoding='utf-8') as f:
