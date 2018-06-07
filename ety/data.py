@@ -5,9 +5,6 @@ import json
 
 from pkg_resources import resource_filename
 
-etyms = []
-langs = []
-
 
 def parse_row(data_row):
     a_lang, a_word = data_row[0].split(': ')
@@ -21,15 +18,13 @@ def parse_row(data_row):
 
 
 def load_relety():
-    global etyms
-    etyms = []
     resource = resource_filename('ety', 'wn/etymwn-relety.json')
     with io.open(resource, 'r', encoding='utf-8') as f:
         etyms = json.load(f)
+    return etyms
 
 
 def load_country_codes():
-    global langs
     langs = []
     resource = resource_filename('ety', 'wn/iso-639-3.json')
     with io.open(resource, 'r', encoding='utf-8') as f:
@@ -39,8 +34,8 @@ def load_country_codes():
             'name': country['name'],
             'iso6393': country['iso6393'],
         })
+    return langs
 
 
-def load():
-    load_relety()
-    load_country_codes()
+etyms = load_relety()
+langs = load_country_codes()
