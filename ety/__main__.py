@@ -1,0 +1,3 @@
+import ety
+
+ety.cli()
