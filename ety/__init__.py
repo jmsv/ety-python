@@ -8,7 +8,7 @@ from . import data
 
 
 def cli():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(prog="ety")
     parser.add_argument("words", type=str, nargs='+',
                         help="the search word(s)")
     parser.add_argument("-r", "--recursive", help="search origins recursively",
