@@ -6,9 +6,6 @@ from treelib import Tree
 
 from . import data
 
-# Load etymology data
-data.load()
-
 
 def cli():
     parser = argparse.ArgumentParser()
