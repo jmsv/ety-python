@@ -106,6 +106,11 @@ class Word(object):
     def __str__(self):
         return self.pretty
 
+    def __repr__(self):
+        return 'Word({word}, language={lang})'.format(
+            word=self.word, lang=self.lang_code
+        )
+
 
 def origins(word, word_lang='eng', recursive=False):
     source_word = Word(word, word_lang)
