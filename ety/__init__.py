@@ -74,7 +74,7 @@ class Word(object):
             root_key = uuid4()
 
             # Create parent node
-            ety_tree.create_node(self.pretty, root_key)
+            ety_tree.create_node(self, root_key)
 
             def _tree(tree_obj, word, parent, parent_word):
                 word_origins = origins(word.word, word_lang=word.lang_code)
@@ -83,7 +83,7 @@ class Word(object):
                     # Recursive call to add child origins
                     if parent_word == origin.word:
                         continue
-                    tree_obj.create_node(origin.pretty, key, parent=parent)
+                    tree_obj.create_node(origin, key, parent=parent)
                     _tree(tree_obj, origin, key, origin.word)
             # Add child etymologies
             _tree(ety_tree, self, root_key, self.word)
@@ -97,6 +97,14 @@ class Word(object):
             if lang['iso6393'] == code:
                 return lang['name']
         return "Unknown language"
+
+    def __lt__(self, other):
+        if isinstance(other, Word):
+            return self.pretty < other.pretty
+        return self.pretty < other
+
+    def __str__(self):
+        return self.pretty
 
 
 def origins(word, word_lang='eng', recursive=False):
