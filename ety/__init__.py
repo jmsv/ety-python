@@ -62,7 +62,7 @@ class Word(object):
 
             self._origins = [
                 Word(item['b_word'], item['b_lang'])
-                for item in row]
+                for item in row if item['b_word'] != self.word]
 
         return self._origins
 
@@ -115,7 +115,7 @@ class Word(object):
 def origins(word, word_lang='eng', recursive=False):
     source_word = Word(word, word_lang)
 
-    result = []
+    result = [source_word]
 
     for origin in source_word.origins:
         result.append(origin)
