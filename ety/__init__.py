@@ -130,5 +130,5 @@ def tree(word, word_lang='eng'):
 
 def random_word(lang='eng'):
     row = list(filter(lambda entry: entry['a_lang'] == lang, data.etyms))
-    word = choice(row)['a_word']
+    word = Word(choice(row)['a_word'], lang)
     return word
