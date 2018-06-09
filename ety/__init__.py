@@ -43,7 +43,7 @@ class Word(object):
     def __init__(self, word, language='eng'):
         self.word = word
         self.lang_code = language
-        self.lang_name = lang_name(language)
+        self.lang_name = self._find_lang_name(language)
 
     @property
     def pretty(self):
@@ -51,12 +51,11 @@ class Word(object):
             word=self.word,
             lang=self.lang_name)
 
-
-def lang_name(code):
-    for lang in data.langs:
-        if lang['iso6393'] == code:
-            return lang['name']
-    return "Unknown language"
+    def _find_lang_name(self, code):
+        for lang in data.langs:
+            if lang['iso6393'] == code:
+                return lang['name']
+        return "Unknown language"
 
 
 def origins(word, word_lang='eng', recursive=False):
