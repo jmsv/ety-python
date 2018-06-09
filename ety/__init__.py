@@ -45,6 +45,7 @@ class Word(object):
         self.lang_code = language
         self.lang_name = self._find_lang_name(language)
         self._origins = []
+        self._tree = Tree()
 
     @property
     def pretty(self):
@@ -64,6 +65,32 @@ class Word(object):
                 for item in row]
 
         return self._origins
+
+    @property
+    def tree(self):
+        if not self._tree:
+            ety_tree = Tree()
+
+            root_key = uuid4()
+
+            # Create parent node
+            ety_tree.create_node(self.pretty, root_key)
+
+            def _tree(tree_obj, word, parent, parent_word):
+                word_origins = origins(word.word, word_lang=word.lang_code)
+                for origin in word_origins:
+                    key = uuid4()
+                    # Recursive call to add child origins
+                    if parent_word == origin.word:
+                        continue
+                    tree_obj.create_node(origin.pretty, key, parent=parent)
+                    _tree(tree_obj, origin, key, origin.word)
+            # Add child etymologies
+            _tree(ety_tree, self, root_key, self.word)
+
+            self._tree = ety_tree
+
+        return self._tree
 
     def _find_lang_name(self, code):
         for lang in data.langs:
@@ -87,31 +114,10 @@ def origins(word, word_lang='eng', recursive=False):
     return result
 
 
-def _tree(tree_obj, word, parent, parent_word):
-    word_origins = origins(word.word, word_lang=word.lang_code)
-    for origin in word_origins:
-        key = uuid4()
-        # Recursive call to add child origins
-        if parent_word == origin.word:
-            continue
-        tree_obj.create_node(origin.pretty, key, parent=parent)
-        _tree(tree_obj, origin, key, origin.word)
-
-
 def tree(word, word_lang='eng'):
-    ety_tree = Tree()
+    source_word = Word(word, word_lang)
 
-    word_obj = Word(word, word_lang)
-    root = word_obj.pretty
-    root_key = uuid4()
-
-    # Create parent node
-    ety_tree.create_node(root, root_key)
-
-    # Add child etymologies
-    _tree(ety_tree, Word(word, word_lang), root_key, word)
-
-    return str(ety_tree)
+    return source_word.tree
 
 
 def random_word(lang='eng'):
