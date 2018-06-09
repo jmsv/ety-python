@@ -57,8 +57,10 @@ class Word(object):
     def origins(self):
         if not self._origins:
             row = list(filter(
-                lambda entry: entry['a_word'] == self.word and entry[
-                    'a_lang'] == self.lang_code, data.etyms))
+                lambda entry: (
+                    entry['a_word'].lower() == self.word.lower() and
+                    entry['a_lang'].lower() == self.lang_code.lower()),
+                data.etyms))
 
             self._origins = [
                 Word(item['b_word'], item['b_lang'])
