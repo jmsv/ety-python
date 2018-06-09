@@ -40,17 +40,16 @@ def cli():
 
 
 class Word(object):
-    def __init__(self, word, language):
+    def __init__(self, word, language='eng'):
         self.word = word
         self.lang_code = language
         self.lang_name = lang_name(language)
-        self.pretty = prettify_word(word, language)
 
-
-def prettify_word(word, language):
-    if language:
-        return "%s (%s)" % (word, lang_name(language))
-    return word
+    @property
+    def pretty(self):
+        return "{word} ({lang})".format(
+            word=self.word,
+            lang=self.lang_name)
 
 
 def lang_name(code):
