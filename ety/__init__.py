@@ -115,7 +115,7 @@ class Word(object):
 def origins(word, word_lang='eng', recursive=False):
     source_word = Word(word, word_lang)
 
-    result = [source_word]
+    result = []
 
     for origin in source_word.origins:
         result.append(origin)
