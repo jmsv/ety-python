@@ -81,7 +81,7 @@ def origins(word, word_lang='eng', recursive=False):
         result.append(origin)
 
         if recursive:
-            for child in origins(origin.word, origin.lang_code):
+            for child in origins(origin.word, origin.lang_code, True):
                 if origin.word != child.word:
                     result.append(child)
     return result
