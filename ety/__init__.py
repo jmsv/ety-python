@@ -33,7 +33,7 @@ def cli():
 
         lines = []
         for origin in word_origins:
-            lines.append(prettify_word(origin['word'], origin['lang']['code']))
+            lines.append(origin.pretty)
         print('\n'.join(lines))
 
     return 0
@@ -44,12 +44,26 @@ class Word(object):
         self.word = word
         self.lang_code = language
         self.lang_name = self._find_lang_name(language)
+        self._origins = []
 
     @property
     def pretty(self):
         return "{word} ({lang})".format(
             word=self.word,
             lang=self.lang_name)
+
+    @property
+    def origins(self):
+        if not self._origins:
+            row = list(filter(
+                lambda entry: entry['a_word'] == self.word and entry[
+                    'a_lang'] == self.lang_code, data.etyms))
+
+            self._origins = [
+                Word(item['b_word'], item['b_lang'])
+                for item in row]
+
+        return self._origins
 
     def _find_lang_name(self, code):
         for lang in data.langs:
@@ -59,35 +73,22 @@ class Word(object):
 
 
 def origins(word, word_lang='eng', recursive=False):
-    result = []
-    for origin in _origins(word, word_lang, recursive):
-        result.append({
-            'word': origin.word,
-            'lang': {
-                'code': origin.lang_code,
-                'name': origin.lang_name
-            }
-        })
-    return result
+    source_word = Word(word, word_lang)
 
-
-def _origins(word, word_lang='eng', recursive=False):
-    row = list(filter(
-        lambda entry: entry['a_word'] == word and entry[
-            'a_lang'] == word_lang, data.etyms))
     result = []
-    for item in row:
-        result.append(Word(item['b_word'], item['b_lang']))
-    if recursive:
-        for origin in result:
-            for child in _origins(origin.word, origin.lang_code):
+
+    for origin in source_word.origins:
+        result.append(origin)
+
+        if recursive:
+            for child in origins(origin.word, origin.lang_code):
                 if origin.word != child.word:
                     result.append(child)
     return result
 
 
 def _tree(tree_obj, word, parent, parent_word):
-    word_origins = _origins(word.word, word_lang=word.lang_code)
+    word_origins = origins(word.word, word_lang=word.lang_code)
     for origin in word_origins:
         key = uuid4()
         # Recursive call to add child origins
