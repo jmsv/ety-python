@@ -6,6 +6,11 @@ from treelib import Tree
 
 from . import data
 
+try:
+    basestring
+except NameError:
+    basestring = str
+
 
 def cli():
     parser = argparse.ArgumentParser(prog="ety")
@@ -41,7 +46,7 @@ def cli():
 
 class Word(object):
     def __init__(self, word, language='eng'):
-        if not isinstance(word, str):
+        if not isinstance(word, basestring):
             raise ValueError('word must be a string')
 
         self.word = word
