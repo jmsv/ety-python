@@ -1,16 +1,10 @@
 import argparse
 from random import choice
 from uuid import uuid4
-import sys
 
 from treelib import Tree
 
 from . import data
-
-if sys.version_info.major == 2:
-    string_ins = basestring
-else:
-    string_ins = str
 
 
 def cli():
@@ -47,7 +41,7 @@ def cli():
 
 class Word(object):
     def __init__(self, word, language='eng'):
-        if not isinstance(word, string_ins):
+        if not isinstance(word, ("".__class__, u"".__class__)):
             raise ValueError('word must be a string')
         self.word = word
         self.lang_code = language
