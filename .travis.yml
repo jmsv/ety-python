@@ -10,7 +10,6 @@ python:
 matrix:
   allow_failures:
     - python: "nightly"
-    - python: "2.7"
 
 install:
   - python setup.py install
