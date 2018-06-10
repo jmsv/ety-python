@@ -33,89 +33,109 @@ def cli():
 
         lines = []
         for origin in word_origins:
-            lines.append(prettify_word(origin['word'], origin['lang']['code']))
+            lines.append(origin.pretty)
         print('\n'.join(lines))
 
     return 0
 
 
 class Word(object):
-    def __init__(self, word, language):
+    def __init__(self, word, language='eng'):
         self.word = word
         self.lang_code = language
-        self.lang_name = lang_name(language)
-        self.pretty = prettify_word(word, language)
+        self.lang_name = self._find_lang_name(language)
+        self._origins = []
+        self._tree = Tree()
 
+    @property
+    def pretty(self):
+        return "{word} ({lang})".format(
+            word=self.word,
+            lang=self.lang_name)
 
-def prettify_word(word, language):
-    if language:
-        return "%s (%s)" % (word, lang_name(language))
-    return word
+    @property
+    def origins(self):
+        if not self._origins:
+            row = list(filter(
+                lambda entry: (
+                    entry['a_word'].lower() == self.word.lower() and
+                    entry['a_lang'].lower() == self.lang_code.lower()),
+                data.etyms))
 
+            self._origins = [
+                Word(item['b_word'], item['b_lang'])
+                for item in row if item['b_word'] != self.word]
 
-def lang_name(code):
-    for lang in data.langs:
-        if lang['iso6393'] == code:
-            return lang['name']
-    return "Unknown language"
+        return self._origins
+
+    @property
+    def tree(self):
+        if not self._tree:
+            ety_tree = Tree()
+
+            root_key = uuid4()
+
+            # Create parent node
+            ety_tree.create_node(self, root_key)
+
+            def _tree(tree_obj, word, parent, parent_word):
+                word_origins = origins(word.word, word_lang=word.lang_code)
+                for origin in word_origins:
+                    key = uuid4()
+                    # Recursive call to add child origins
+                    if parent_word == origin.word:
+                        continue
+                    tree_obj.create_node(origin, key, parent=parent)
+                    _tree(tree_obj, origin, key, origin.word)
+            # Add child etymologies
+            _tree(ety_tree, self, root_key, self.word)
+
+            self._tree = ety_tree
+
+        return self._tree
+
+    def _find_lang_name(self, code):
+        for lang in data.langs:
+            if lang['iso6393'] == code:
+                return lang['name']
+        return "Unknown language"
+
+    def __lt__(self, other):
+        if isinstance(other, Word):
+            return self.pretty < other.pretty
+        return self.pretty < other
+
+    def __str__(self):
+        return self.pretty
+
+    def __repr__(self):
+        return 'Word({word}, language={lang})'.format(
+            word=self.word, lang=self.lang_code
+        )
 
 
 def origins(word, word_lang='eng', recursive=False):
-    result = []
-    for origin in _origins(word, word_lang, recursive):
-        result.append({
-            'word': origin.word,
-            'lang': {
-                'code': origin.lang_code,
-                'name': origin.lang_name
-            }
-        })
-    return result
+    source_word = Word(word, word_lang)
 
-
-def _origins(word, word_lang='eng', recursive=False):
-    row = list(filter(
-        lambda entry: entry['a_word'] == word and entry[
-            'a_lang'] == word_lang, data.etyms))
     result = []
-    for item in row:
-        result.append(Word(item['b_word'], item['b_lang']))
-    if recursive:
-        for origin in result:
-            for child in _origins(origin.word, origin.lang_code):
+
+    for origin in source_word.origins:
+        result.append(origin)
+
+        if recursive:
+            for child in origins(origin.word, origin.lang_code, True):
                 if origin.word != child.word:
                     result.append(child)
     return result
 
 
-def _tree(tree_obj, word, parent, parent_word):
-    word_origins = _origins(word.word, word_lang=word.lang_code)
-    for origin in word_origins:
-        key = uuid4()
-        # Recursive call to add child origins
-        if parent_word == origin.word:
-            continue
-        tree_obj.create_node(origin.pretty, key, parent=parent)
-        _tree(tree_obj, origin, key, origin.word)
-
-
 def tree(word, word_lang='eng'):
-    ety_tree = Tree()
+    source_word = Word(word, word_lang)
 
-    word_obj = Word(word, word_lang)
-    root = word_obj.pretty
-    root_key = uuid4()
-
-    # Create parent node
-    ety_tree.create_node(root, root_key)
-
-    # Add child etymologies
-    _tree(ety_tree, Word(word, word_lang), root_key, word)
-
-    return str(ety_tree)
+    return source_word.tree
 
 
 def random_word(lang='eng'):
     row = list(filter(lambda entry: entry['a_lang'] == lang, data.etyms))
-    word = choice(row)['a_word']
+    word = Word(choice(row)['a_word'], lang)
     return word
