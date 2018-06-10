@@ -57,7 +57,7 @@ class Word(object):
 
     @property
     def pretty(self):
-        return "{word} ({lang})".format(
+        return u"{word} ({lang})".format(
             word=self.word,
             lang=self.lang_name)
 
@@ -112,7 +112,7 @@ class Word(object):
         return self.pretty
 
     def __repr__(self):
-        return 'Word({word}, language={lang})'.format(
+        return u'Word({word}, language={lang})'.format(
             word=self.word, lang=self.lang_code
         )
 
