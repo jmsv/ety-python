@@ -15,9 +15,10 @@ class TestEty(unittest.TestCase):
         self.assertGreater(len(o), 0)
 
     def test_lang(self):
-        self.assertEqual(ety.lang_name('eng'), 'English')
-        self.assertEqual(ety.lang_name('lat'), 'Latin')
-        self.assertEqual(ety.lang_name('enm'), 'Middle English (1100-1500)')
+        self.assertEqual(ety.Language('eng').name, 'English')
+        self.assertEqual(ety.Language('lat').name, 'Latin')
+        self.assertEqual(ety.Language('enm').name,
+                         'Middle English (1100-1500)')
 
     def test_tree(self):
         self.assertGreaterEqual(len(str(
