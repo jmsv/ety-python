@@ -62,7 +62,8 @@ class Word(object):
             row = list(filter(
                 lambda entry: (
                         entry['a_word'].lower() == self.word.lower() and
-                        entry['a_lang'].lower() == self.lang_code.lower()), data.etyms))
+                        entry['a_lang'].lower() == self.lang_code.lower()),
+                data.etyms))
 
             self._origins = [
                 Word(item['b_word'], item['b_lang'])
