@@ -41,9 +41,12 @@ def cli():
 
 class Word(object):
     def __init__(self, word, language='eng'):
+        if not isinstance(word, str):
+            raise ValueError('word must be a string')
+
         self.word = word
         self.lang_code = language
-        self.lang_name = self._find_lang_name(language)
+        self.lang_name = lang_name(language)
         self._origins = []
         self._tree = Tree()
 
@@ -58,9 +61,8 @@ class Word(object):
         if not self._origins:
             row = list(filter(
                 lambda entry: (
-                    entry['a_word'].lower() == self.word.lower() and
-                    entry['a_lang'].lower() == self.lang_code.lower()),
-                data.etyms))
+                        entry['a_word'].lower() == self.word.lower() and
+                        entry['a_lang'].lower() == self.lang_code.lower()), data.etyms))
 
             self._origins = [
                 Word(item['b_word'], item['b_lang'])
@@ -87,18 +89,13 @@ class Word(object):
                         continue
                     tree_obj.create_node(origin, key, parent=parent)
                     _tree(tree_obj, origin, key, origin.word)
+
             # Add child etymologies
             _tree(ety_tree, self, root_key, self.word)
 
             self._tree = ety_tree
 
         return self._tree
-
-    def _find_lang_name(self, code):
-        for lang in data.langs:
-            if lang['iso6393'] == code:
-                return lang['name']
-        return "Unknown language"
 
     def __lt__(self, other):
         if isinstance(other, Word):
@@ -114,9 +111,21 @@ class Word(object):
         )
 
 
-def origins(word, word_lang='eng', recursive=False):
-    source_word = Word(word, word_lang)
+def lang_name(code):
+    for lang in data.langs:
+        if lang['iso6393'] == code:
+            return lang['name']
+    return "Unknown language"
 
+
+def _get_source_word(word, word_lang):
+    if isinstance(word, Word):
+        return word
+    return Word(word, word_lang)
+
+
+def origins(word, word_lang='eng', recursive=False):
+    source_word = _get_source_word(word, word_lang)
     result = []
 
     for origin in source_word.origins:
@@ -130,8 +139,7 @@ def origins(word, word_lang='eng', recursive=False):
 
 
 def tree(word, word_lang='eng'):
-    source_word = Word(word, word_lang)
-
+    source_word = _get_source_word(word, word_lang)
     return source_word.tree
 
 

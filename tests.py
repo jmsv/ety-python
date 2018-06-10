@@ -4,9 +4,6 @@ import ety
 
 class TestEty(unittest.TestCase):
 
-    def test_pass(self):
-        self.assertTrue(True)
-
     def test_origins(self):
         o = ety.origins(ety.random_word())
         self.assertGreater(len(o), 0)
