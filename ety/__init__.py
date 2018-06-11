@@ -31,7 +31,7 @@ def cli():
 
         lines = []
         for origin in word_origins:
-            lines.append(origin.pretty)
+            lines.append(str(origin))
         print('\n'.join(lines))
 
     return 0

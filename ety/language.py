@@ -14,6 +14,7 @@ class Language(object):
             raise ValueError('Language with iso code \'%s\' unknown' % iso)
 
     def __repr__(self):
-        return u'Language(iso={iso}, name={name})'.format(
-            iso=self.iso, name=self.name
-        )
+        return u'Language(iso={})'.format(self.iso)
+
+    def __str__(self):
+        return self.name

@@ -12,11 +12,16 @@ class Word(object):
             raise ValueError('word must be a string')
         self.word = word
         self.language = Language(language)
+        self._origins = None
 
     def origins(self, recursive=False):
+        if self._origins:
+            return self._origins
+
         row = list(filter(
             lambda entry: entry['a_word'] == self.word and entry[
                 'a_lang'] == self.language.iso, etymwn_data))
+
         result = []
         for item in row:
             result.append(Word(item['b_word'], item['b_lang']))
@@ -25,7 +30,9 @@ class Word(object):
                 for child in origin.origins():
                     if origin.word != child.word:
                         result.append(child)
-        return result
+
+        self._origins = result
+        return self._origins
 
     def tree(self):
         ety_tree = Tree()
@@ -38,21 +45,22 @@ class Word(object):
         ety_tree.create_node(root, root_key)
 
         # Add child etymologies
-        self._tree(ety_tree, root_key, self.word)
+        self._tree(ety_tree, root_key)
 
-        return str(ety_tree)
+        return str(ety_tree).strip()
 
-    def _tree(self, tree_obj, parent, parent_word):
+    def _tree(self, tree_obj, parent):
         source_word = Word(self.word, self.language.iso)
         word_origins = source_word.origins()
 
         for origin in word_origins:
             key = uuid4()
             # Recursive call to add child origins
-            if parent_word == origin.word:
+            if self.word == origin.word:
                 continue
+
             tree_obj.create_node(origin.pretty, key, parent=parent)
-            origin._tree(tree_obj, key, origin.word)
+            origin._tree(tree_obj, key)
 
     @property
     def pretty(self):
