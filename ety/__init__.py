@@ -23,7 +23,7 @@ def cli():
             continue
 
         if args.tree:
-            result = tree(word)
+            result = str(tree(word)).strip()
         else:
             result = '\n'.join(origin.pretty for origin in word_origins)
 
