@@ -42,7 +42,7 @@ class Word(object):
         root_key = uuid4()
 
         # Create parent node
-        ety_tree.create_node(root, root_key)
+        ety_tree.create_node(root, root_key, data=self)
 
         # Add child etymologies
         self._tree(ety_tree, root_key)
@@ -59,7 +59,7 @@ class Word(object):
             if self.word == origin.word:
                 continue
 
-            tree_obj.create_node(origin.pretty, key, parent=parent)
+            tree_obj.create_node(origin.pretty, key, parent=parent, data=origin)
             origin._tree(tree_obj, key)
 
     @property
