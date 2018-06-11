@@ -59,7 +59,8 @@ class Word(object):
             if self.word == origin.word:
                 continue
 
-            tree_obj.create_node(origin.pretty, key, parent=parent, data=origin)
+            tree_obj.create_node(
+                origin.pretty, key, parent=parent, data=origin)
             origin._tree(tree_obj, key)
 
     @property
