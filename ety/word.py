@@ -47,7 +47,7 @@ class Word(object):
         # Add child etymologies
         self._tree(ety_tree, root_key)
 
-        return str(ety_tree).strip()
+        return ety_tree
 
     def _tree(self, tree_obj, parent):
         source_word = Word(self.word, self.language.iso)
