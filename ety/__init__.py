@@ -15,24 +15,19 @@ def cli():
                         action="store_true")
     args = parser.parse_args()
 
-    if args.tree:
-        for word in args.words:
-            word_origins = origins(word, recursive=args.recursive)
-            if not word_origins:
-                print("No origins found for word: '%s'" % word)
-                continue
-            print(tree(word))
-        return 0
-
     for word in args.words:
         word_origins = origins(word, recursive=args.recursive)
+
         if not word_origins:
             print("No origins found for word: '%s'" % word)
+            continue
 
-        lines = []
-        for origin in word_origins:
-            lines.append(str(origin))
-        print('\n'.join(lines))
+        if args.tree:
+            result = tree(word)
+        else:
+            result = '\n'.join(origin.pretty for origin in word_origins)
+
+        print(result)
 
     return 0
 
