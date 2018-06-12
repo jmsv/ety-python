@@ -1,5 +1,12 @@
 import unittest
+
 import ety
+
+
+def test_circular_etymology():
+    """Test to avoid https://github.com/jmsv/ety-python/issues/20
+    This method is run with a 10 second timeout (see Makefile test)"""
+    ety.origins('software', recursive=True)
 
 
 class TestEty(unittest.TestCase):
