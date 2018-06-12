@@ -1,6 +1,4 @@
-from uuid import uuid4
-
-from treelib import Tree
+import treelib
 
 from .data import etyms as etymwn_data
 from .language import Language
@@ -13,6 +11,7 @@ class Word(object):
         self.word = word
         self.language = Language(language)
         self._origins = None
+        self._tree_key = self.word + self.language.iso
 
     def origins(self, recursive=False):
         if self._origins:
@@ -34,11 +33,11 @@ class Word(object):
         return self._origins
 
     def tree(self):
-        ety_tree = Tree()
+        ety_tree = treelib.Tree()
 
         word_obj = Word(self.word, self.language.iso)
         root = word_obj.pretty
-        root_key = uuid4()
+        root_key = self._tree_key
 
         # Create parent node
         ety_tree.create_node(root, root_key, data=self)
@@ -53,13 +52,17 @@ class Word(object):
         word_origins = source_word.origins()
 
         for origin in word_origins:
-            key = uuid4()
+            key = origin._tree_key
             # Recursive call to add child origins
             if self.word == origin.word:
                 continue
 
-            tree_obj.create_node(
-                origin.pretty, key, parent=parent, data=origin)
+            try:
+                tree_obj.create_node(
+                    origin.pretty, key, parent=parent, data=origin
+                )
+            except treelib.exceptions.DuplicatedNodeIdError:
+                continue
             origin._tree(tree_obj, key)
 
     @property
