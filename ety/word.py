@@ -1,6 +1,4 @@
-from uuid import uuid4
-
-from treelib import Tree
+import treelib
 
 from .data import etyms as etymwn_data
 from .language import Language
@@ -13,6 +11,7 @@ class Word(object):
         self.word = word
         self.language = Language(language)
         self._origins = None
+        self._id = u"{}:{}".format(self.word, self.language.iso)
 
     def origins(self, recursive=False):
         if self._origins:
@@ -22,24 +21,30 @@ class Word(object):
             lambda entry: entry['a_word'] == self.word and entry[
                 'a_lang'] == self.language.iso, etymwn_data))
 
-        result = []
-        for item in row:
-            result.append(Word(item['b_word'], item['b_lang']))
+        result = [Word(item['b_word'], item['b_lang']) for item in row]
+
         if recursive:
             for origin in result:
                 for child in origin.origins():
-                    if origin.word != child.word:
-                        result.append(child)
+                    duplicates = (
+                        origin.word == child.word
+                        and child in result  # noqa: W503
+                        and child == self  # noqa: W503
+                    )
+
+                    if duplicates:
+                        continue
+                    result.append(child)
 
         self._origins = result
         return self._origins
 
     def tree(self):
-        ety_tree = Tree()
+        ety_tree = treelib.Tree()
 
         word_obj = Word(self.word, self.language.iso)
         root = word_obj.pretty
-        root_key = uuid4()
+        root_key = self._id
 
         # Create parent node
         ety_tree.create_node(root, root_key, data=self)
@@ -54,13 +59,17 @@ class Word(object):
         word_origins = source_word.origins()
 
         for origin in word_origins:
-            key = uuid4()
+            key = origin._id
             # Recursive call to add child origins
             if self.word == origin.word:
                 continue
 
-            tree_obj.create_node(
-                origin.pretty, key, parent=parent, data=origin)
+            try:
+                tree_obj.create_node(
+                    origin.pretty, key, parent=parent, data=origin
+                )
+            except treelib.exceptions.DuplicatedNodeIdError:
+                continue
             origin._tree(tree_obj, key)
 
     @property
@@ -73,6 +82,11 @@ class Word(object):
         if isinstance(other, Word):
             return self.pretty < other.pretty
         return self.pretty < other
+
+    def __eq__(self, other):
+        if isinstance(other, Word):
+            return self._id == other._id
+        return self.pretty == other
 
     def __str__(self):
         return self.pretty
