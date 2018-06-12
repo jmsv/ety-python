@@ -27,9 +27,9 @@ class Word(object):
             for origin in result:
                 for child in origin.origins():
                     duplicates = (
-                        origin.word == child.word and
-                        child in result and
-                        child == self
+                        origin.word == child.word
+                        and child in result  # noqa: W503
+                        and child == self  # noqa: W503
                     )
 
                     if duplicates:
