@@ -11,7 +11,7 @@ class Word(object):
         self.word = word
         self.language = Language(language)
         self._origins = None
-        self._tree_key = self.word + self.language.iso
+        self._id = u"{}:{}".format(self.word, self.language.iso)
 
     def origins(self, recursive=False):
         if self._origins:
@@ -37,7 +37,7 @@ class Word(object):
 
         word_obj = Word(self.word, self.language.iso)
         root = word_obj.pretty
-        root_key = self._tree_key
+        root_key = self._id
 
         # Create parent node
         ety_tree.create_node(root, root_key, data=self)
@@ -52,7 +52,7 @@ class Word(object):
         word_origins = source_word.origins()
 
         for origin in word_origins:
-            key = origin._tree_key
+            key = origin._id
             # Recursive call to add child origins
             if self.word == origin.word:
                 continue
@@ -78,7 +78,7 @@ class Word(object):
 
     def __eq__(self, other):
         if isinstance(other, Word):
-            return self.pretty == other.pretty
+            return self._id == other._id
         return self.pretty == other
 
     def __str__(self):
