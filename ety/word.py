@@ -26,10 +26,15 @@ class Word(object):
         if recursive:
             for origin in result:
                 for child in origin.origins():
-                    no_duplicates = child not in result and child != self
+                    duplicates = (
+                        origin.word == child.word and
+                        child in result and
+                        child == self
+                    )
 
-                    if origin.word != child.word and no_duplicates:
-                        result.append(child)
+                    if duplicates:
+                        continue
+                    result.append(child)
 
         self._origins = result
         return self._origins
