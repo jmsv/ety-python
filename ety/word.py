@@ -26,15 +26,9 @@ class Word(object):
         if recursive:
             for origin in result:
                 for child in origin.origins():
-                    duplicates = (
-                        origin.word == child.word
-                        and child in result  # noqa: W503
-                        and child == self  # noqa: W503
-                    )
-
-                    if duplicates:
-                        continue
-                    result.append(child)
+                    # Check word isn't already in tree before appending
+                    if child not in result and child != self:
+                        result.append(child)
 
         self._origins = result
         return self._origins
