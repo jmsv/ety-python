@@ -22,13 +22,12 @@ class Word(object):
             lambda entry: entry['a_word'] == self.word and entry[
                 'a_lang'] == self.language.iso, etymwn_data))
 
-        result = []
-        for item in row:
-            result.append(Word(item['b_word'], item['b_lang']))
+        result = [Word(item['b_word'], item['b_lang']) for item in row]
+
         if recursive:
             for origin in result:
                 for child in origin.origins():
-                    if origin.word != child.word:
+                    if origin.word != child.word and child not in result:
                         result.append(child)
 
         self._origins = result
@@ -73,6 +72,11 @@ class Word(object):
         if isinstance(other, Word):
             return self.pretty < other.pretty
         return self.pretty < other
+
+    def __eq__(self, other):
+        if isinstance(other, Word):
+            return self.pretty == other.pretty
+        return self.pretty == other
 
     def __str__(self):
         return self.pretty
