@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.1.0] - 2018/03/13
+
+### Added
+
+- Support for running CLI as module: `python -m ety words` [#18](https://github.com/jmsv/ety-python/pull/18)
+- `Word`s have `__eq__` and `__lt__` methods
+- Proto language support [#32](https://github.com/jmsv/ety-python/issues/32)
+
+### Changed
+
+- `origins` returns a list of `Word` objects (e.g. `[Word(potato, language=English), ...]`), rather than a list of dictionaries
+- `random_word` returns a `Word` object, rather than a string
+- `tree` returns a [treelib](https://github.com/caesar0301/treelib) tree, rather than its string representation. A string can be obtained using `str()`
+- Origins cli search bullet points origin lists, reducing ambiguity when searching for multiple words
+
+### Bug fixes
+
+- Fixed circular origin bug [#20](https://github.com/jmsv/ety-python/issues/20)
+
 ## [1.0.2] - 2018/06/06
 
 ### Bug Fixes
