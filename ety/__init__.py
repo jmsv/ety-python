@@ -16,16 +16,20 @@ def cli():
     args = parser.parse_args()
 
     for word in args.words:
-        word_origins = origins(word, recursive=args.recursive)
+        roots = origins(word, recursive=args.recursive)
 
-        if not word_origins:
-            print("No origins found for word: '%s'" % word)
+        if not roots:
+            print("No origins found for word: {}".format(word))
             continue
 
         if args.tree:
             result = str(tree(word)).strip()
         else:
-            result = '\n'.join(origin.pretty for origin in word_origins)
+            result = '\n'
+            if word is args.words[0]:
+                result = ''
+            result += '\033[1m' + word + '\033[0m \n \u2022 '
+            result += '\n \u2022 '.join(root.pretty for root in roots)
 
         print(result)
 
