@@ -1,4 +1,5 @@
 # ety-python
+
 Python module to find the etymological origins of a word
 
 [![Build Status](https://travis-ci.org/jmsv/ety-python.svg?branch=master)](https://travis-ci.org/jmsv/ety-python)
@@ -11,7 +12,7 @@ Python module to find the etymological origins of a word
 
 ### [pip](https://pypi.org/project/ety)
 
-```bash
+```
 pip install ety
 ```
 
@@ -19,7 +20,7 @@ pip install ety
 
 In a virtual environment: (Pipenv is recommended)
 
-```bash
+```
 python setup.py install
 ```
 
@@ -27,14 +28,14 @@ python setup.py install
 
 ### Module
 
-```
+```python
 >>> import ety
 
 >>> ety.origins("potato")
-[{'word': 'batata', 'lang': {'code': 'tnq', 'name': 'Taino'}}]
+[Word(batata, language=Taino)]
 
 >>> ety.origins('drink', recursive=True)
-[{'word': 'drync', 'lang': {'code': 'ang', 'name': 'Old English (ca. 450-1100)'}}, {'word': 'drinken', 'lang': {'code': 'enm', 'name': 'Middle English (1100-1500)'}}, {'word': 'drincan', 'lang': {'code': 'ang', 'name': 'Old English (ca. 450-1100)'}}]
+[Word(drync, language=Old English (ca. 450-1100)), Word(drinken, language=Middle English (1100-1500)), Word(drincan, language=Old English (ca. 450-1100))]
 
 >>> print(ety.tree('aerodynamically'))
 aerodynamically (English)
@@ -47,7 +48,6 @@ aerodynamically (English)
             └── δυναμικός (Ancient Greek (to 1453))
                 └── δύναμις (Ancient Greek (to 1453))
                     └── δύναμαι (Ancient Greek (to 1453))
-
 ```
 
 ### CLI
@@ -55,10 +55,10 @@ aerodynamically (English)
 After installing, a command-line tool is also available. `ety -h` outputs the following help text describing arguments:
 
 ```
-usage: ety [-h] [-r] [-t] word
+usage: ety [-h] [-r] [-t] words [words ...]
 
 positional arguments:
-  word             the search word
+  words            the search word(s)
 
 optional arguments:
   -h, --help       show this help message and exit
@@ -66,17 +66,19 @@ optional arguments:
   -t, --tree       display etymology tree
 ```
 
-#### Examples:
+#### Examples
 
-```
-$ ety drink   # List direct origins of a word
-drync (Old English (ca. 450-1100))
-drinken (Middle English (1100-1500))
+```bash
+$ ety drink
+drink   # List direct origins of a word
+ • drync (Old English (ca. 450-1100))
+ • drinken (Middle English (1100-1500))
 
 $ ety drink -r  # Recursive argument
-drync (Old English (ca. 450-1100))
-drinken (Middle English (1100-1500))
-drincan (Old English (ca. 450-1100))
+drink 
+ • drync (Old English (ca. 450-1100))
+ • drinken (Middle English (1100-1500))
+ • drincan (Old English (ca. 450-1100))
 
 $ ety drink -t  # Output tree argument
 drink (English)
