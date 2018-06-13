@@ -1,8 +1,11 @@
+from __future__ import print_function
+
 import argparse
 from random import choice
 
 from . import data
 from .word import Word, Language  # noqa: F401
+from .tree import EtyTree
 
 
 def cli():
@@ -23,15 +26,12 @@ def cli():
             continue
 
         if args.tree:
-            result = str(tree(word)).strip()
+            result = tree(word)
         else:
-            result = '\n'
-            if word is args.words[0]:
-                result = ''
-            result += '\033[1m' + word + '\033[0m \n \u2022 '
+            result = '\033[1m' + word + '\033[0m \n \u2022 '
             result += '\n \u2022 '.join(root.pretty for root in roots)
 
-        print(result)
+        print(result, end="\n\n")
 
     return 0
 
@@ -49,7 +49,7 @@ def origins(word, word_lang='eng', recursive=False):
 
 def tree(word, word_lang='eng'):
     source_word = _get_source_word(word, word_lang)
-    return source_word.tree()
+    return EtyTree(source_word)
 
 
 def random_word(lang='eng'):
