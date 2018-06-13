@@ -1,7 +1,6 @@
-import treelib
-
 from .data import etyms as etymwn_data
 from .language import Language
+from .tree import EtyTree
 
 
 class Word(object):
@@ -34,37 +33,7 @@ class Word(object):
         return self._origins
 
     def tree(self):
-        ety_tree = treelib.Tree()
-
-        word_obj = Word(self.word, self.language.iso)
-        root = word_obj.pretty
-        root_key = self._id
-
-        # Create parent node
-        ety_tree.create_node(root, root_key, data=self)
-
-        # Add child etymologies
-        self._tree(ety_tree, root_key)
-
-        return ety_tree
-
-    def _tree(self, tree_obj, parent):
-        source_word = Word(self.word, self.language.iso)
-        word_origins = source_word.origins()
-
-        for origin in word_origins:
-            key = origin._id
-            # Recursive call to add child origins
-            if self.word == origin.word:
-                continue
-
-            try:
-                tree_obj.create_node(
-                    origin.pretty, key, parent=parent, data=origin
-                )
-            except treelib.exceptions.DuplicatedNodeIdError:
-                continue
-            origin._tree(tree_obj, key)
+        return EtyTree(self)
 
     @property
     def pretty(self):
