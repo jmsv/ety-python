@@ -49012,6 +49012,42 @@
     "iso6391": null
   },
   {
+    "name": "Proto-Germanic",
+    "type": "extinct",
+    "scope": "individual",
+    "iso6393": "p_gem",
+    "iso6392B": null,
+    "iso6392T": null,
+    "iso6391": null
+  },
+  {
+    "name": "Proto-West-Germanic",
+    "type": "extinct",
+    "scope": "individual",
+    "iso6393": "p_gmw",
+    "iso6392B": null,
+    "iso6392T": null,
+    "iso6391": null
+  },
+  {
+    "name": "Proto-Indo-European",
+    "type": "extinct",
+    "scope": "individual",
+    "iso6393": "p_ine",
+    "iso6392B": null,
+    "iso6392T": null,
+    "iso6391": null
+  },
+  {
+    "name": "Proto-Slavic",
+    "type": "extinct",
+    "scope": "individual",
+    "iso6393": "p_sla",
+    "iso6392B": null,
+    "iso6392T": null,
+    "iso6391": null
+  },
+  {
     "name": "Quapaw",
     "type": "living",
     "scope": "individual",
@@ -70720,3 +70756,4 @@
     "iso6391": null
   }
 ]
+
