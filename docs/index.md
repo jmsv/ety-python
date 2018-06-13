@@ -1,4 +1,5 @@
 # ety-python
+
 Python module to find the etymological origins of a word
 
 [![Build Status](https://travis-ci.org/jmsv/ety-python.svg?branch=master)](https://travis-ci.org/jmsv/ety-python)
@@ -11,7 +12,7 @@ Python module to find the etymological origins of a word
 
 ### [pip](https://pypi.org/project/ety)
 
-```bash
+```
 pip install ety
 ```
 
@@ -19,7 +20,7 @@ pip install ety
 
 In a virtual environment: (Pipenv is recommended)
 
-```bash
+```
 python setup.py install
 ```
 
@@ -27,7 +28,7 @@ python setup.py install
 
 ### Module
 
-```
+```python
 >>> import ety
 
 >>> ety.origins("potato")
@@ -66,9 +67,9 @@ optional arguments:
   -t, --tree       display etymology tree
 ```
 
-#### Examples:
+#### Examples
 
-```
+```bash
 $ ety drink   # List direct origins of a word
 drync (Old English (ca. 450-1100))
 drinken (Middle English (1100-1500))
