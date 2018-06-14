@@ -6,8 +6,8 @@ import ety
 class EtyTree(treelib.Tree):
 
     def __init__(self, word=''):
-        if isinstance(word, ("".__class__, u"".__class__)):
-            word = ety.Word(word)
+        if not isinstance(word, ety.Word):
+            raise ValueError("word must be an instance of 'ety.Word'")
         self.source_word = word
 
         super(EtyTree, self).__init__()
