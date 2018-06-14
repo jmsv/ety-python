@@ -35,6 +35,14 @@ class TestEty(unittest.TestCase):
         self.assertGreaterEqual(len(str(
             ety.tree('fabric')).split('\n')), 4)
 
+    def test_census_words(self):
+        a = ety.census(['alphabet', 'avocado', 'guitar'])
+        b = ety.census('alphabet avocado guitar')
+        self.assertEqual(a, b)
+        self.assertTrue(ety.Word('avocado') in a.words)
+        with self.assertRaises(ValueError):
+            ety.census(['valid', ety.Word('stillvalid'), 12345])
+
 
 if __name__ == '__main__':
     unittest.main()
