@@ -1,11 +1,16 @@
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
+
 from __future__ import print_function
 
 import argparse
 from random import choice
 
+import colorful
+
 from . import data
-from .word import Word, Language  # noqa: F401
 from .tree import EtyTree
+from .word import Word, Language  # noqa: F401
 
 
 def cli():
@@ -18,6 +23,7 @@ def cli():
                         action="store_true")
     args = parser.parse_args()
 
+    output = ''
     for word in args.words:
         roots = origins(word, recursive=args.recursive)
 
@@ -26,12 +32,12 @@ def cli():
             continue
 
         if args.tree:
-            result = tree(word)
+            output += '%s\n\n' % str(tree(word))
         else:
-            result = '\033[1m' + word + '\033[0m \n \u2022 '
-            result += '\n \u2022 '.join(root.pretty for root in roots)
+            output += '\n\n%s\n \u2022 ' % colorful.bold(word)
+            output += '\n \u2022 '.join(root.pretty for root in roots)
 
-        print(result, end="\n\n")
+    print(output.strip())
 
     return 0
 

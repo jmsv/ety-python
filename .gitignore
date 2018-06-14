@@ -1,4 +1,7 @@
-#PyCharm stuff
+# VSCode
+.vscode/
+
+# PyCharm stuff
 .idea/
 _trial_temp/
 

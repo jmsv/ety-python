@@ -1,3 +1,6 @@
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
+
 from .data import etyms as etymwn_data
 from .language import Language
 from .tree import EtyTree

@@ -5,8 +5,11 @@ name = "pypi"
 
 [packages]
 treelib = "*"
+colorful = "*"
 
 [dev-packages]
+pylint = "*"
+"flake8" = "*"
 
 [requires]
 python_version = "3.6"
