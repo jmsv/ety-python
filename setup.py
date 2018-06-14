@@ -33,7 +33,7 @@ setup(
     keywords='etymology origins english language words',
     packages=['ety'],
     install_requires=[
-        "treelib",
+        "treelib", "colorful",
     ],
     extras_require={
         'dev': ['flake8'],
