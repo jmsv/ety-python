@@ -6,8 +6,6 @@ from __future__ import print_function
 import argparse
 from random import choice
 
-import colorful
-
 from . import data
 from .tree import EtyTree
 from .word import Word, Language  # noqa: F401
@@ -25,6 +23,7 @@ def cli():
 
     output = ''
     for word in args.words:
+        source_word = Word(word, is_source=True)
         roots = origins(word, recursive=args.recursive)
 
         if not roots:
@@ -32,9 +31,9 @@ def cli():
             continue
 
         if args.tree:
-            output += '%s\n\n' % str(tree(word))
+            output += '%s\n\n' % str(tree(source_word))
         else:
-            output += '\n\n%s\n \u2022 ' % colorful.bold(word)
+            output += '\n\n%s\n \u2022 ' % source_word
             output += '\n \u2022 '.join(root.pretty for root in roots)
 
     print(output.strip())
@@ -45,7 +44,7 @@ def cli():
 def _get_source_word(word, word_lang):
     if isinstance(word, Word):
         return word
-    return Word(word, word_lang)
+    return Word(word, word_lang, is_source=True)
 
 
 def origins(word, word_lang='eng', recursive=False):

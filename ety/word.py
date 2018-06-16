@@ -1,17 +1,20 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
+import colorful
+
 from .data import etyms as etymwn_data
 from .language import Language
 from .tree import EtyTree
 
 
 class Word(object):
-    def __init__(self, word, language='eng'):
+    def __init__(self, word, language='eng', is_source=False):
         if not isinstance(word, ("".__class__, u"".__class__)):
             raise ValueError('word must be a string')
         self.word = word
         self.language = Language(language)
+        self.is_source = is_source
         self._origins = None
         self._id = u"{}:{}".format(self.word, self.language.iso)
 
@@ -40,8 +43,9 @@ class Word(object):
 
     @property
     def pretty(self):
+        word = colorful.bold(self.word) if self.is_source else self.word
         return u"{word} ({lang})".format(
-            word=self.word,
+            word=word,
             lang=self.language.name)
 
     def __lt__(self, other):
