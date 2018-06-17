@@ -25,7 +25,10 @@ def stdout_capture(func):
             self._value = u""
 
         def write(self, message):
-            self._value += message
+            try:
+                self._value += message.decode("utf-8")
+            except AttributeError:  # Already decoded
+                self._value += message
 
         @property
         def value(self):
