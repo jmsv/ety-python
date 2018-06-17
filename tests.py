@@ -74,6 +74,89 @@ class TestEty(unittest.TestCase):
         self.assertGreaterEqual(len(str(
             ety.tree('fabric')).split('\n')), 4)
 
+    @stdout_capture
+    def test_cli_no_args(self, output):
+        words = ["test"]
+        sys.argv = ["ety.py", "test"]
+
+        ety.cli()
+
+        origins = ety.origins("test")
+
+        expected_lines = len(words) + len(origins)
+
+        self.assertEqual(expected_lines, output.lines)
+
+    @stdout_capture
+    def test_cli_recursive(self, output):
+        words = ["test"]
+        sys.argv = ["ety.py", "-r"] + words
+
+        ety.cli()
+
+        origins = ety.origins("test", recursive=True)
+
+        expected_lines = len(words) + len(origins)
+
+        self.assertEqual(expected_lines, output.lines)
+
+    @stdout_capture
+    def test_cli_tree(self, output):
+        words = ["test"]
+        sys.argv = ["ety.py", "-t"] + words
+
+        ety.cli()
+
+        tree = ety.tree("test")
+        expected_lines = len(tree)
+
+        self.assertEqual(expected_lines, output.lines)
+
+    @stdout_capture
+    def test_cli_multiple_words(self, output):
+        words = ["test", "word"]
+        sys.argv = ["ety.py"] + words
+
+        ety.cli()
+
+        origins = [
+            origin for word in words
+            for origin in ety.origins(word)
+        ]
+
+        expected_lines = len(words) + len(origins) + len(words) - 1
+
+        self.assertEqual(expected_lines, output.lines)
+
+    @stdout_capture
+    def test_cli_multiple_words_recursive(self, output):
+        words = ["test", "word"]
+        sys.argv = ["ety.py", "-r"] + words
+
+        ety.cli()
+
+        origins = [
+            origin for word in words
+            for origin in ety.origins(word, recursive=True)
+        ]
+
+        expected_lines = len(words) + len(origins) + len(words) - 1
+
+        self.assertEqual(expected_lines, output.lines)
+
+    @stdout_capture
+    def test_cli_multiple_words_tree(self, output):
+        words = ["test", "word"]
+        sys.argv = ["ety.py", "-t"] + words
+
+        ety.cli()
+
+        trees = [ety.tree(word) for word in words]
+
+        expected_length = sum(len(tree) for tree in trees) + len(words) - 1
+
+        self.assertEqual(expected_length, output.lines)
+
 
 if __name__ == '__main__':
     unittest.main()
