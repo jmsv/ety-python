@@ -16,15 +16,15 @@ def stdout_capture(func):
     """Decorator to capture stdout during a test for testing the command line
     If you need to actually print to stdout during a test, use ._print
     """
-    sys_stdout_write = sys.stdout.write
+    sys_stdout = sys.stdout
 
     class MockWriter(object):
-        _print = sys_stdout_write
+        _print = sys_stdout.write
 
         def __init__(self):
             self._value = u""
 
-        def __call__(self, message):
+        def write(self, message):
             self._value += message
 
         @property
@@ -39,13 +39,13 @@ def stdout_capture(func):
     def wrapper(obj):
         output = MockWriter()
         # Override stdout.write with the mock
-        sys.stdout.write = output
+        sys.stdout = output
 
         # Pass the mock to the test
         result = func(obj, output)
 
         # Restore stdout
-        sys.stdout.write = sys_stdout_write
+        sys.stdout = sys_stdout
         return result
     return wrapper
 
