@@ -15,28 +15,34 @@ class Word(object):
         self.word = word
         self.language = Language(language)
         self.is_source = is_source
-        self._origins = None
+        self._origins = {
+            'direct': [],
+            'recursive': []
+        }
         self._id = u"{}:{}".format(self.word, self.language.iso)
 
     def origins(self, recursive=False):
-        if self._origins:
-            return self._origins
+        search = 'recursive' if recursive else 'direct'
+
+        o = self._origins[search]  # Origins for direct or recursive search
+
+        if o:
+            return o
 
         row = list(filter(
             lambda entry: entry['a_word'] == self.word and entry[
                 'a_lang'] == self.language.iso, etymwn_data))
 
-        result = [Word(item['b_word'], item['b_lang']) for item in row]
+        o = [Word(item['b_word'], item['b_lang']) for item in row]
 
         if recursive:
-            for origin in result:
+            for origin in o:
                 for child in origin.origins():
                     # Check word isn't already in tree before appending
-                    if child not in result and child != self:
-                        result.append(child)
+                    if child not in o and child != self:
+                        o.append(child)
 
-        self._origins = result
-        return self._origins
+        return o
 
     def tree(self):
         return EtyTree(self)
