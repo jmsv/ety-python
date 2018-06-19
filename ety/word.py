@@ -7,10 +7,12 @@ from .data import etyms as etymwn_data
 from .language import Language
 from .tree import EtyTree
 
+from six import string_types
+
 
 class Word(object):
     def __init__(self, word, language='eng', is_source=False):
-        if not isinstance(word, ("".__class__, u"".__class__)):
+        if not isinstance(word, string_types):
             raise ValueError('word must be a string')
         self.word = word
         self.language = Language(language)

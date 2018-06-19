@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
-import ety
+from ety import cli
 
-ety.cli()
+cli()
