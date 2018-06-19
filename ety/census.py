@@ -1,22 +1,25 @@
 import re
 
-from .word import Word
+from six import string_types
 
-string_types = ("".__class__, u"".__class__)
+from .word import Word
 
 
 class Census(object):
     def __init__(self, words, lang='eng'):
-        if isinstance(words, ("".__class__, u"".__class__)):
-            words = re.split('\s+', words)
+        self.words = []
+        self._origins = {
+            'direct': [],
+            'recursive': []
+        }
+
+        if isinstance(words, string_types):
+            words = list(re.split('\s+', words))  # Split words by whitespace
         elif isinstance(words, (list, tuple)):
             words = list(words)
         else:
             raise ValueError('words argument must be either string or list')
 
-        assert type(words) is list
-
-        self.words = []
         for word in list(words):
             if isinstance(word, string_types):
                 self.words.append(Word(word, lang))
@@ -25,6 +28,20 @@ class Census(object):
             else:
                 raise ValueError("Invalid word type: '%s'.\ Words must\
                     be ety.Word objects or strings" % str(type(word)))
+
+    def origins(self, recursive=False):
+        search = 'recursive' if recursive else 'direct'
+
+        o = self._origins[search]
+
+        # Return cached direct or recursive origin searches if already searched
+        if o:
+            return o
+
+        for word in self.words:
+            o.extend(word.origins(recursive=recursive))
+
+        return o
 
     def __eq__(self, other):
         return self.words == other.words

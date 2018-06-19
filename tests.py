@@ -43,6 +43,19 @@ class TestEty(unittest.TestCase):
         with self.assertRaises(ValueError):
             ety.census(['valid', ety.Word('stillvalid'), 12345])
 
+    def test_census_origins(self):
+        a = ety.census('flying aerodynamically')
+        b = ety.origins('flying')
+        c = ety.origins('aerodynamically')
+
+        self.assertEqual(a.origins(), b + c)
+
+        d = ety.census('flying aerodynamically')
+        e = ety.origins('flying', recursive=True)
+        f = ety.origins('aerodynamically', recursive=True)
+
+        self.assertEqual(d.origins(recursive=True), e + f)
+
 
 if __name__ == '__main__':
     unittest.main()
