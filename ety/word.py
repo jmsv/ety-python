@@ -22,20 +22,24 @@ class Word(object):
         if self._origins:
             return self._origins
 
-        row = list(filter(
-            lambda entry: entry['a_word'] == self.word and entry[
-                'a_lang'] == self.language.iso, etymwn_data))
+        if self.word not in etymwn_data[self.language.iso]:
+            # There are no roots for this word
+            return []
 
-        result = [Word(item['b_word'], item['b_lang']) for item in row]
+        roots = [Word(word, lang) for root in
+                 etymwn_data[self.language.iso][self.word] for word, lang in
+                 root.items()]
+
+        tracked = roots[:]
 
         if recursive:
-            for origin in result:
-                for child in origin.origins():
+            for root in tracked:
+                for child in root.origins():
                     # Check word isn't already in tree before appending
-                    if child not in result and child != self:
-                        result.append(child)
+                    if child not in tracked and child != self:
+                        tracked.append(child)
 
-        self._origins = result
+        self._origins = tracked
         return self._origins
 
     def tree(self):
@@ -62,6 +66,6 @@ class Word(object):
         return self.pretty
 
     def __repr__(self):
-        return u'Word({word}, language={lang})'.format(
-            word=self.word, lang=self.language
+        return u'Word({word}, {lang} [{iso}])'.format(
+            word=self.word, lang=self.language, iso=self.iso
         )
