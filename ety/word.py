@@ -21,8 +21,7 @@ class Word(object):
             'direct': [],
             'recursive': []
         }
-        self._id = u"{}:{}".format(
-            self.word.lower(), self.language.iso.lower())
+        self._id = u"{}:{}".format(self.word, self.language.iso)
 
     def origins(self, recursive=False):
         if self.word not in etymwn_data[self.language.iso]:

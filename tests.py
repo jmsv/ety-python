@@ -56,8 +56,8 @@ def stdout_capture(func):
 class TestEty(unittest.TestCase):
 
     def test_origins(self):
-        o = ety.origins(ety.random_word())
-        self.assertGreater(len(o), 0)
+        word = ety.random_word()
+        self.assertGreater(len(word), 0)
 
     def test_origins_recursion(self):
         o = ety.origins(ety.random_word(), recursive=True)
@@ -97,18 +97,6 @@ class TestEty(unittest.TestCase):
         f = ety.origins('aerodynamically', recursive=True)
 
         self.assertEqual(d.origins(recursive=True), e + f)
-
-    def test_origins_allows_any_case(self):
-        wonky_word_origins = ety.origins("tEsT")
-        lower_word_origins = ety.origins("test")
-
-        self.assertEqual(wonky_word_origins, lower_word_origins)
-
-    def test_tree_allows_any_case(self):
-        wonky_word_tree = [node.data for node in ety.tree("tEsT").all_nodes()]
-        lower_word_tree = [node.data for node in ety.tree("test").all_nodes()]
-
-        self.assertEqual(wonky_word_tree, lower_word_tree)
 
     @stdout_capture
     def test_cli_no_args(self, output):
