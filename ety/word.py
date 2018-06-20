@@ -21,8 +21,7 @@ class Word(object):
             'direct': [],
             'recursive': []
         }
-        self._id = u"{}:{}".format(
-            self.word.lower(), self.language.iso.lower())
+        self._id = u"{}:{}".format(self.word, self.language.iso)
 
     def origins(self, recursive=False):
         search = 'recursive' if recursive else 'direct'
@@ -33,10 +32,8 @@ class Word(object):
             return o
 
         row = list(filter(
-            lambda entry: (
-                entry['a_word'].lower() == self.word.lower()
-                and entry['a_lang'].lower() == self.language.iso.lower()),
-            etymwn_data))
+            lambda entry: entry['a_word'] == self.word and entry[
+                'a_lang'] == self.language.iso, etymwn_data))
 
         o = [Word(item['b_word'], item['b_lang']) for item in row]
 
