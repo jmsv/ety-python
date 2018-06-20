@@ -105,10 +105,10 @@ class TestEty(unittest.TestCase):
         self.assertEqual(wonky_word_origins, lower_word_origins)
 
     def test_tree_allows_any_case(self):
-        wonky_word_tree = ety.tree("tEsT")
-        lower_word_tree = ety.tree("test")
+        wonky_word_tree = [node.data for node in ety.tree("tEsT").all_nodes()]
+        lower_word_tree = [node.data for node in ety.tree("test").all_nodes()]
 
-        self.assertEqual(str(wonky_word_tree), str(lower_word_tree))
+        self.assertEqual(wonky_word_tree, lower_word_tree)
 
     @stdout_capture
     def test_cli_no_args(self, output):
