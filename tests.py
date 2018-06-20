@@ -56,7 +56,7 @@ def stdout_capture(func):
 class TestEty(unittest.TestCase):
 
     def test_origins(self):
-        word = ety.random_word().word
+        word = ety.origins(ety.random_word())
         self.assertGreater(len(word), 0)
 
     def test_origins_recursion(self):
