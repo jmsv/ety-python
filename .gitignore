@@ -4,7 +4,6 @@
 # PyCharm stuff
 .idea/
 _trial_temp/
-runner.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

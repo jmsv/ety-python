@@ -8,7 +8,7 @@ from pkg_resources import resource_filename
 
 
 def load_relety():
-    resource = resource_filename('ety', 'wn/etymologies.json')
+    resource = resource_filename('ety', 'wn/etymwn-relety.json')
     with io.open(resource, 'r', encoding='utf-8') as f:
         return json.load(f)
 

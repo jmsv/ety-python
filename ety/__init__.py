@@ -59,7 +59,8 @@ def tree(word, word_lang='eng'):
 
 
 def random_word(lang='eng'):
-    return choice(list(data.etyms[lang]))
+    w = choice(list(data.etyms[lang]))
+    return Word(w, lang)
 
 
 def census(words):
