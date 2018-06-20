@@ -8,6 +8,7 @@ from random import choice
 
 from . import data
 from .tree import EtyTree
+from .census import Census
 from .word import Word, Language  # noqa: F401
 
 
@@ -57,3 +58,11 @@ def tree(word, word_lang='eng'):
     return EtyTree(source_word)
 
 
+def random_word(lang='eng'):
+    row = list(filter(lambda entry: entry['a_lang'] == lang, data.etyms))
+    word = choice(row)['a_word']
+    return Word(word, lang)
+
+
+def census(words):
+    return Census(words)

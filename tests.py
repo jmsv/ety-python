@@ -77,6 +77,39 @@ class TestEty(unittest.TestCase):
         self.assertGreaterEqual(len(str(
             ety.tree('fabric')).split('\n')), 4)
 
+    def test_census_words(self):
+        a = ety.census(['alphabet', 'avocado', 'guitar'])
+        b = ety.census('alphabet avocado guitar')
+        self.assertEqual(a, b)
+        self.assertTrue(ety.Word('avocado') in a.words)
+        with self.assertRaises(ValueError):
+            ety.census(['valid', ety.Word('stillvalid'), 12345])
+
+    def test_census_origins(self):
+        a = ety.census('flying aerodynamically')
+        b = ety.origins('flying')
+        c = ety.origins('aerodynamically')
+
+        self.assertEqual(a.origins(), b + c)
+
+        d = ety.census('flying aerodynamically')
+        e = ety.origins('flying', recursive=True)
+        f = ety.origins('aerodynamically', recursive=True)
+
+        self.assertEqual(d.origins(recursive=True), e + f)
+
+    def test_origins_allows_any_case(self):
+        wonky_word_origins = ety.origins("tEsT")
+        lower_word_origins = ety.origins("test")
+
+        self.assertEqual(wonky_word_origins, lower_word_origins)
+
+    def test_tree_allows_any_case(self):
+        wonky_word_tree = [node.data for node in ety.tree("tEsT").all_nodes()]
+        lower_word_tree = [node.data for node in ety.tree("test").all_nodes()]
+
+        self.assertEqual(wonky_word_tree, lower_word_tree)
+
     @stdout_capture
     def test_cli_no_args(self, output):
         words = ["test"]

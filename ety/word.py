@@ -7,21 +7,24 @@ from .data import etyms as etymwn_data
 from .language import Language
 from .tree import EtyTree
 
+from six import string_types
+
 
 class Word(object):
     def __init__(self, word, language='eng', is_source=False):
-        if not isinstance(word, ("".__class__, u"".__class__)):
+        if not isinstance(word, string_types):
             raise ValueError('word must be a string')
         self.word = word
         self.language = Language(language)
         self.is_source = is_source
-        self._origins = None
-        self._id = u"{}:{}".format(self.word, self.language.iso)
+        self._origins = {
+            'direct': [],
+            'recursive': []
+        }
+        self._id = u"{}:{}".format(
+            self.word.lower(), self.language.iso.lower())
 
     def origins(self, recursive=False):
-        if self._origins:
-            return self._origins
-
         if self.word not in etymwn_data[self.language.iso]:
             # There are no roots for this word
             return []
@@ -67,5 +70,5 @@ class Word(object):
 
     def __repr__(self):
         return u'Word({word}, {lang} [{iso}])'.format(
-            word=self.word, lang=self.language, iso=self.iso
+            word=self.word, lang=self.language, iso=self.language.iso
         )
