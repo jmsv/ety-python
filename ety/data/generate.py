@@ -46,7 +46,7 @@ def verify_local_data(url, dl_path):
     try:
         with open(dl_path, 'rb') as f:
             actual = hashlib.md5(f.read()).hexdigest()
-    except FileNotFoundError:
+    except EnvironmentError:
         return False
 
     expected = requests.get('%s.checksum' % url).text.strip()
