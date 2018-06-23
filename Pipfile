@@ -11,6 +11,8 @@ six = "*"
 [dev-packages]
 pylint = "*"
 "flake8" = "*"
+requests = "*"
+clint = "*"
 
 [requires]
 python_version = "3.6"
