@@ -31,7 +31,7 @@ setup(
     ],
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, <4',
     keywords='etymology origins english language words',
-    packages=['ety'],
+    packages=['ety', 'ety/data'],
     install_requires=[
         "treelib", "colorful", "six",
     ],
@@ -39,7 +39,7 @@ setup(
         'dev': ['flake8'],
     },
     package_data={
-        'ety': ['wn/etymwn-relety.json', 'wn/iso-639-3.json'],
+        'ety': ['data/etymologies.json', 'data/iso-639-3.json'],
     },
     entry_points={
         'console_scripts': [
