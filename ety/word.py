@@ -14,8 +14,8 @@ class Word(object):
     def __init__(self, word, language='eng', is_source=False):
         if not isinstance(word, string_types):
             raise ValueError('word must be a string')
-        self.word = word
-        self.language = Language(language)
+        self._word = word
+        self._language = Language(language)
         self.is_source = is_source
         self._origins = {
             'direct': [],
@@ -46,6 +46,14 @@ class Word(object):
 
     def tree(self):
         return EtyTree(self)
+
+    @property
+    def word(self):
+        return self._word
+
+    @property
+    def language(self):
+        return self._language
 
     @property
     def pretty(self):
