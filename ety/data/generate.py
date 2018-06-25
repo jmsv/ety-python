@@ -1,6 +1,8 @@
 """
-Filtered data is the full dataset after the following:
-grep -E "rel:etymology|rel:is_derived_from" etymwn.tsv > etymwn-filtered.tsv
+This script downloads source data from data.jmsv.me; this contains an unzipped
+and filtered mirror of the http://www1.icsi.berkeley.edu/~demelo/etymwn dataset
+
+Data was filtered using the script at: https://data.jmsv.me/etymwn-filterer.sh
 """
 
 import csv
@@ -16,13 +18,16 @@ from clint.textui import progress
 
 
 def prepare(source_dir):
+    """
+    Create data source directory if not exists
+    """
     if not os.path.exists(source_dir):
         os.makedirs(source_dir)
 
 
 def download_dataset(url, dl_path):
     """
-    Download etymwn from jmsv.me mirror, displaying progress bar
+    Download filtered etymwn from jmsv.me mirror, displaying progress bar
     """
     r = requests.get(url, stream=True)
 
@@ -41,12 +46,15 @@ def download_dataset(url, dl_path):
 def verify_local_data(url, dl_path):
     """
     Compare actual file checksum with expected served checksum
+    Return bool determines whether or not data is (re)downloaded
     :return: True if local file matches, otherwise False
     """
     try:
         with open(dl_path, 'rb') as f:
+            # Local file checksum
             actual = hashlib.md5(f.read()).hexdigest()
     except EnvironmentError:
+        # Return False if file doesn't exit
         return False
 
     expected = requests.get('%s.checksum' % url).text.strip()
@@ -54,6 +62,11 @@ def verify_local_data(url, dl_path):
 
 
 def split_elements(compound):
+    """
+    Split source tsv elements at colon
+    e.g.: 'rel:etymology' => ['rel', 'etymology']
+    :return: Elements as list
+    """
     elements = [e.strip() for e in compound.split(':')]
     if len(elements) == 2:
         return elements
@@ -63,6 +76,10 @@ def split_elements(compound):
 
 
 def generate_json(source_path, dir):
+    """
+    Reads source tsv and restructures data as described:
+    https://github.com/jmsv/ety-python/issues/24
+    """
     result = {}
 
     print('Loading source tsv')
@@ -100,8 +117,7 @@ def generate_json(source_path, dir):
 
 def main():
     """
-    Define paths, download data if required, generate dataset
-    :return:
+    Define paths, download data if required, generate json dataset
     """
     dir = os.path.dirname(os.path.realpath(__file__))
     source_dir = os.path.join(dir, 'source')
