@@ -181,6 +181,14 @@ class TestEty(unittest.TestCase):
 
         self.assertEqual(expected_length, output.lines)
 
+    def test_format(self):
+        from flake8.main.application import Application as Flake8
+        linter = Flake8()
+
+        linter.run(["."])
+
+        self.assertEqual(linter.result_count, 0)
+
 
 if __name__ == '__main__':
     unittest.main()
