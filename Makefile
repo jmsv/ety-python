@@ -4,7 +4,7 @@ install:
 	python setup.py install
 
 test:
-	python tests.py
+	python -m pytest tests.py
 	timeout 30s python -c "import tests; tests.test_circular_etymology()"
 
 data:

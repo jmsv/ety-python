@@ -16,7 +16,8 @@ install:
 
 before_script:
   - pip install flake8
+  - pip install pytest
 
 script:
-  - python tests.py
+  - python -m pytest tests.py
   - timeout 30s python -c "import tests; tests.test_circular_etymology()"
