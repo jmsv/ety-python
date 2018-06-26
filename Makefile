@@ -4,7 +4,6 @@ install:
 	python setup.py install
 
 test:
-	flake8
 	python tests.py
 	timeout 30s python -c "import tests; tests.test_circular_etymology()"
 

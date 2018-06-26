@@ -18,6 +18,5 @@ before_script:
   - pip install flake8
 
 script:
-  - flake8 .
   - python tests.py
   - timeout 30s python -c "import tests; tests.test_circular_etymology()"
