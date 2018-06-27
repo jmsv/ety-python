@@ -20,9 +20,8 @@ before_script:
   - pip install codecov
 
 script:
-  - python -m pytest tests.py
   - timeout 30s python -c "import tests; tests.test_circular_etymology()"
-  - coverage run tests.py
+  - coverage run -m pytest tests.py
 
 after_success:
   - codecov
