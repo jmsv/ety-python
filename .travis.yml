@@ -1,6 +1,5 @@
 language: python
 dist: xenial
-sudo: true
 
 python:
   - "2.7"
@@ -11,6 +10,12 @@ python:
   - "nightly"
 
 matrix:
+  include:
+    - python: "3.4"
+      dist: trusty
+  exclude:
+    - python: "3.4"
+      dist: xenial
   allow_failures:
     - python: "nightly"
 
