@@ -1,21 +1,14 @@
 language: python
-dist: xenial
 
 python:
   - "2.7"
   - "3.4"
   - "3.5"
   - "3.6"
-  - "3.7"
+  - "3.7-dev"
   - "nightly"
 
 matrix:
-  include:
-    - python: "3.4"
-      dist: trusty
-  exclude:
-    - python: "3.4"
-      dist: xenial
   allow_failures:
     - python: "nightly"
 
