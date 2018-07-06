@@ -71,11 +71,27 @@ class TestEty(unittest.TestCase):
         self.assertEqual(ety.Language('enm').name,
                          'Middle English (1100-1500)')
 
+    def test_lang_equal(self):
+        a = ety.Language('eng')
+        b = ety.Language('eng')
+        c = ety.Language('lat')
+        self.assertEqual(a, b)
+        self.assertNotEqual(b, c)
+
+    def test_word_equal(self):
+        a = ety.Word('electronic')
+        b = ety.Word('electronic', language='lat')
+        c = ety.Word('electrinus')
+        self.assertNotEqual(a, b)
+        self.assertNotEqual(a, c)
+
     def test_tree(self):
         self.assertGreaterEqual(len(str(
             ety.tree('aerodynamically')).split('\n')), 10)
         self.assertGreaterEqual(len(str(
             ety.tree('fabric')).split('\n')), 4)
+        self.assertGreaterEqual(len(str(
+            ety.tree('potato')).split('\n')), 2)
 
     def test_census_words(self):
         a = ety.census(['alphabet', 'avocado', 'guitar'])
@@ -97,6 +113,10 @@ class TestEty(unittest.TestCase):
         f = ety.origins('aerodynamically', recursive=True)
 
         self.assertEqual(d.origins(recursive=True), e + f)
+
+    def test_word_len(self):
+        word = ety.random_word().word
+        self.assertEqual(len(ety.Word(word)), len(word))
 
     @stdout_capture
     def test_cli_no_args(self, output):

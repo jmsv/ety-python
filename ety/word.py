@@ -2,12 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import colorful
+from six import string_types
 
 from .data import etyms as etymwn_data
 from .language import Language
 from .tree import EtyTree
-
-from six import string_types
 
 
 class Word(object):
@@ -15,8 +14,14 @@ class Word(object):
         if not isinstance(word, string_types):
             raise ValueError('word must be a string')
         self._word = word
-        self._language = Language(language)
-        self.is_source = is_source
+
+        if isinstance(language, Language):
+            self._language = language
+        else:
+            self._language = Language(language)
+
+        self.is_source = bool(is_source)
+
         self._origins = {
             'direct': [],
             'recursive': []
@@ -24,7 +29,8 @@ class Word(object):
         self._id = u"{}:{}".format(self.word, self.language.iso)
 
     def origins(self, recursive=False):
-        if self.word not in etymwn_data[self.language.iso]:
+        if (self.language.iso not in etymwn_data or
+                self.word not in etymwn_data[self.language.iso]):
             # There are no roots for this word
             return []
 
@@ -79,3 +85,6 @@ class Word(object):
         return u'Word({word}, {lang} [{iso}])'.format(
             word=self.word, lang=self.language, iso=self.language.iso
         )
+
+    def __len__(self):
+        return len(self.word)
