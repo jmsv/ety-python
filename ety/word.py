@@ -12,7 +12,7 @@ from .tree import EtyTree
 class Word(object):
     def __init__(self, word, language='eng', is_source=False):
         if not isinstance(word, string_types):
-            raise ValueError('word must be a string')
+            raise TypeError('word must be a string')
         self._word = word
 
         if isinstance(language, Language):
@@ -29,14 +29,18 @@ class Word(object):
         self._id = u"{}:{}".format(self.word, self.language.iso)
 
     def origins(self, recursive=False):
+        search = 'recursive' if recursive else 'direct'
+
         if (self.language.iso not in etymwn_data or
                 self.word not in etymwn_data[self.language.iso]):
             # There are no roots for this word
             return []
 
-        roots = [Word(word, lang) for root in
-                 etymwn_data[self.language.iso][self.word] for word, lang in
-                 root.items()]
+        roots = [
+            Word(word, lang)
+            for root in etymwn_data[self.language.iso][self.word]
+            for word, lang in root.items()
+        ]
 
         tracked = roots[:]
 
@@ -47,8 +51,8 @@ class Word(object):
                     if child not in tracked and child != self:
                         tracked.append(child)
 
-        self._origins = tracked
-        return self._origins
+        self._origins[search] = tracked
+        return self._origins[search]
 
     def tree(self):
         return EtyTree(self)
