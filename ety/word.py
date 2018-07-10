@@ -92,3 +92,11 @@ class Word(object):
 
     def __len__(self):
         return len(self.word)
+
+    @property
+    def __dict__(self):
+        return {
+            'id': self._id,
+            'word': self.word,
+            'language': self.language.__dict__
+        }

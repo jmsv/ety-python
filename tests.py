@@ -118,6 +118,9 @@ class TestEty(unittest.TestCase):
         word = ety.random_word().word
         self.assertEqual(len(ety.Word(word)), len(word))
 
+    def test_tree_dict(self):
+        self.assertIsInstance(ety.tree('potato').__dict__, dict)
+
     @stdout_capture
     def test_cli_no_args(self, output):
         words = ["test"]
