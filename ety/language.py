@@ -7,7 +7,6 @@ from .data import langs
 class Language(object):
     def __init__(self, iso):
         self.iso = iso
-        self.name = None
 
         try:
             self.name = langs[iso]
