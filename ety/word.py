@@ -10,7 +10,7 @@ from .tree import EtyTree
 
 
 class Word(object):
-    def __init__(self, word, language='eng', is_source=False):
+    def __init__(self, word, language='eng', color=False):
         if not isinstance(word, string_types):
             raise TypeError('word must be a string')
         self._word = word
@@ -20,7 +20,7 @@ class Word(object):
         else:
             self._language = Language(language)
 
-        self.is_source = bool(is_source)
+        self.color = bool(color)
 
         self._origins = {
             'direct': [],
@@ -67,7 +67,7 @@ class Word(object):
 
     @property
     def pretty(self):
-        word = colorful.bold(self.word) if self.is_source else self.word
+        word = colorful.bold(self.word) if self.color else self.word
         return u"{word} ({lang})".format(
             word=word,
             lang=self.language.name)

@@ -1,8 +1,6 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function
-
 from random import choice
 
 from . import data
@@ -12,19 +10,19 @@ from .tree import EtyTree
 from .word import Word, Language  # noqa: F401
 
 
-def _get_source_word(word, word_lang):
+def _get_source_word(word, word_lang, color=False):
     if isinstance(word, Word):
         return word
-    return Word(word, word_lang, is_source=True)
+    return Word(word, word_lang, color=color)
 
 
-def origins(word, word_lang='eng', recursive=False):
-    source_word = _get_source_word(word, word_lang)
+def origins(word, word_lang='eng', recursive=False, color=False):
+    source_word = _get_source_word(word, word_lang, color)
     return source_word.origins(recursive)
 
 
-def tree(word, word_lang='eng'):
-    source_word = _get_source_word(word, word_lang)
+def tree(word, word_lang='eng', color=False):
+    source_word = _get_source_word(word, word_lang, color)
     return EtyTree(source_word)
 
 

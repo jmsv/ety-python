@@ -11,7 +11,7 @@ data:
 	PYTHONIOENCODING=utf-8 python ety/data/generate.py
 
 clean:
-	rm -rf build dist ety.egg-info _trial_temp __pycache__ */__pycache__
+	rm -rf build/ dist/ ety.egg-info/ _trial_temp/ __pycache__/ */__pycache__/ htmlcov/
 	rm -f *.pyc */*.pyc
 
 dist:
