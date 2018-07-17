@@ -12,8 +12,8 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='ety',
-    version='1.1.0',
-    description='find the etymological origins of a word',
+    version='1.2.0',
+    description='discover the etymology of words',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/jmsv/ety-python',

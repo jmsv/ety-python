@@ -1,6 +1,26 @@
 # Changelog
 
-## [1.1.0] - 2018/03/13
+## [1.2.0] - 2018/07/17
+
+### Added
+
+- __Python 3.7 support!__
+- Uses `colorful` for source word formatting in the command line
+- `__dict__` method added to `EtyTree` for serialization
+- Started monitoring [coverage](https://codecov.io/gh/jmsv/ety-python)
+
+### Changed
+
+- `EtyTree` takes an instance of `Word` [#13](https://github.com/jmsv/ety-python/issues/13)
+- Data restructured for much better performance [#24](https://github.com/jmsv/ety-python/issues/24)
+- `six` used to make Python 2/3 compatibility dev easier
+- flake8 linting moved to Python tests, rather than cli tool
+
+### Fixed
+
+- Minor `Language` [`KeyError`](https://github.com/jmsv/ety-python/commit/086572f49899f918f395bdb8f867ae6a5702b1c8) bug
+
+## [1.1.0] - 2018/06/13
 
 ### Added
 
@@ -15,13 +35,13 @@
 - `tree` returns a [treelib](https://github.com/caesar0301/treelib) tree, rather than its string representation. A string can be obtained using `str()`
 - Origins cli search bullet points origin lists, reducing ambiguity when searching for multiple words
 
-### Bug fixes
+### Fixed
 
 - Fixed circular origin bug [#20](https://github.com/jmsv/ety-python/issues/20)
 
 ## [1.0.2] - 2018/06/06
 
-### Bug Fixes
+### Fixed
 
 - [@alxwrd](https://github.com/alxwrd) fixed unspecified encoding Windows bug, see [#16](https://github.com/jmsv/ety-python/pull/16)
 
@@ -42,6 +62,8 @@
 
 - Uses [Etymological Wordnet](http://www1.icsi.berkeley.edu/~demelo/etymwn) data instead of scraped Dictionary.com data
 - `ety.origins` output structure changed
+
+---
 
 ## [0.2.0] - 2018/05/16
 

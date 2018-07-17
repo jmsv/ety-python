@@ -14,8 +14,7 @@ def test_circular_etymology():
 
 def stdout_capture(func):
     """Decorator to capture stdout during a test for testing the command line
-    If you need to actually print to stdout during a test, use ._print
-    """
+    If you need to actually print to stdout during a test, use ._print"""
     sys_stdout = sys.stdout
 
     class MockWriter(object):
