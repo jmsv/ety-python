@@ -10,9 +10,9 @@ from .tree import EtyTree
 
 
 class Word(object):
-    def __init__(self, word, language='eng', color=False):
+    def __init__(self, word, language="eng", color=False):
         if not isinstance(word, string_types):
-            raise TypeError('word must be a string')
+            raise TypeError("word must be a string")
         self._word = word
 
         if isinstance(language, Language):
@@ -22,17 +22,16 @@ class Word(object):
 
         self.color = bool(color)
 
-        self._origins = {
-            'direct': [],
-            'recursive': []
-        }
+        self._origins = {"direct": [], "recursive": []}
         self._id = u"{}:{}".format(self.word, self.language.iso)
 
     def origins(self, recursive=False):
-        search = 'recursive' if recursive else 'direct'
+        search = "recursive" if recursive else "direct"
 
-        if (self.language.iso not in etymwn_data or
-                self.word not in etymwn_data[self.language.iso]):
+        if (
+            self.language.iso not in etymwn_data
+            or self.word not in etymwn_data[self.language.iso]
+        ):
             # There are no roots for this word
             return []
 
@@ -68,9 +67,7 @@ class Word(object):
     @property
     def pretty(self):
         word = colorful.bold(self.word) if self.color else self.word
-        return u"{word} ({lang})".format(
-            word=word,
-            lang=self.language.name)
+        return u"{word} ({lang})".format(word=word, lang=self.language.name)
 
     def __lt__(self, other):
         if isinstance(other, Word):
@@ -86,7 +83,7 @@ class Word(object):
         return self.pretty
 
     def __repr__(self):
-        return u'Word({word}, {lang} [{iso}])'.format(
+        return u"Word({word}, {lang} [{iso}])".format(
             word=self.word, lang=self.language, iso=self.language.iso
         )
 
@@ -95,8 +92,4 @@ class Word(object):
 
     @property
     def __dict__(self):
-        return {
-            'id': self._id,
-            'word': self.word,
-            'language': self.language.__dict__
-        }
+        return {"id": self._id, "word": self.word, "language": self.language.__dict__}

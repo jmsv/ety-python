@@ -6,7 +6,6 @@ import ety
 
 
 class EtyTree(treelib.Tree):
-
     def __init__(self, word):
         if not isinstance(word, ety.Word):
             raise TypeError("word must be an instance of 'ety.Word'")

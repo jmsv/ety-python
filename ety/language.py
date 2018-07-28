@@ -11,16 +11,13 @@ class Language(object):
         try:
             self.name = langs[iso]
         except KeyError:
-            raise KeyError('Language with iso code \'%s\' unknown' % iso)
+            raise KeyError("Language with iso code '%s' unknown" % iso)
 
     def __repr__(self):
-        return u'Language(iso={})'.format(self.iso)
+        return u"Language(iso={})".format(self.iso)
 
     def __str__(self):
         return self.name
 
     def __eq__(self, other):
-        return (
-            self.iso == other.iso and
-            self.name == other.name
-        )
+        return self.iso == other.iso and self.name == other.name
