@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.1] - 2018/07/28
+
+### Fixed
+
+- Incorrect README rendering on PyPI due to building with an old version of `wheel` (see [pypa/warehouse#3664](https://github.com/pypa/warehouse/issues/3664))
+
 ## [1.3.0] - 2018/07/28
 
 ### Added
