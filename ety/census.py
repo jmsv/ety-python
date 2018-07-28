@@ -9,7 +9,7 @@ from .word import Word
 
 
 class Census(object):
-    def __init__(self, words, lang="eng"):
+    def __init__(self, words, language="eng"):
         self.words = []
         self._origins = {"direct": [], "recursive": []}
 
@@ -22,7 +22,7 @@ class Census(object):
 
         for word in list(words):
             if isinstance(word, string_types):
-                self.words.append(Word(word, lang))
+                self.words.append(Word(word, language))
             elif isinstance(word, Word):
                 self.words.append(word)
             else:

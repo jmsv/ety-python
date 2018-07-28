@@ -10,25 +10,25 @@ from .tree import EtyTree
 from .word import Word, Language  # noqa: F401
 
 
-def _get_source_word(word, word_lang, color=False):
+def _get_source_word(word, language, color=False):
     if isinstance(word, Word):
         return word
-    return Word(word, word_lang, color=color)
+    return Word(word, language, color=color)
 
 
-def origins(word, word_lang="eng", recursive=False, color=False):
-    source_word = _get_source_word(word, word_lang, color)
+def origins(word, language="eng", recursive=False, color=False):
+    source_word = _get_source_word(word, language, color)
     return source_word.origins(recursive)
 
 
-def tree(word, word_lang="eng", color=False):
-    source_word = _get_source_word(word, word_lang, color)
+def tree(word, language="eng", color=False):
+    source_word = _get_source_word(word, language, color)
     return EtyTree(source_word)
 
 
-def random_word(lang="eng"):
-    w = choice(list(data.etyms[lang]))
-    return Word(w, lang)
+def random_word(language="eng"):
+    w = choice(list(data.etyms[language]))
+    return Word(w, language)
 
 
 def census(words):
