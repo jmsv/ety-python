@@ -13,24 +13,17 @@ def cli():
     :return: Exit code
     """
     parser = argparse.ArgumentParser(prog="ety")
+    parser.add_argument("words", type=str, nargs="+", help="the search word(s)")
     parser.add_argument(
-        "words", type=str, nargs='+',
-        help="the search word(s)"
+        "-r", "--recursive", help="search origins recursively", action="store_true"
     )
     parser.add_argument(
-        "-r", "--recursive",
-        help="search origins recursively",
-        action="store_true"
-    )
-    parser.add_argument(
-        "-t", "--tree",
-        help="display etymology tree",
-        action="store_true"
+        "-t", "--tree", help="display etymology tree", action="store_true"
     )
 
     args = parser.parse_args()
 
-    output = ''
+    output = ""
     for word in args.words:
         source_word = ety.Word(word, color=True)
         roots = ety.origins(word, recursive=args.recursive)
@@ -41,10 +34,10 @@ def cli():
 
         # Bullet point: '\u2022'
         if args.tree:
-            output += '%s\n\n' % str(ety.tree(source_word))
+            output += "%s\n\n" % str(ety.tree(source_word))
         else:
-            output += '\n\n%s\n \u2022 ' % source_word
-            output += '\n \u2022 '.join(root.pretty for root in roots)
+            output += "\n\n%s\n \u2022 " % source_word
+            output += "\n \u2022 ".join(root.pretty for root in roots)
 
     print(output.strip())
 

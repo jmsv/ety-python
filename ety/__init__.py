@@ -16,17 +16,17 @@ def _get_source_word(word, word_lang, color=False):
     return Word(word, word_lang, color=color)
 
 
-def origins(word, word_lang='eng', recursive=False, color=False):
+def origins(word, word_lang="eng", recursive=False, color=False):
     source_word = _get_source_word(word, word_lang, color)
     return source_word.origins(recursive)
 
 
-def tree(word, word_lang='eng', color=False):
+def tree(word, word_lang="eng", color=False):
     source_word = _get_source_word(word, word_lang, color)
     return EtyTree(source_word)
 
 
-def random_word(lang='eng'):
+def random_word(lang="eng"):
     w = choice(list(data.etyms[lang]))
     return Word(w, lang)
 

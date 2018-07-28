@@ -14,6 +14,9 @@ clean:
 	rm -rf build/ dist/ ety.egg-info/ _trial_temp/ __pycache__/ */__pycache__/ htmlcov/
 	rm -f *.pyc */*.pyc
 
+format:
+	black *.py */*.py
+
 dist:
 	python3 setup.py sdist bdist_wheel
 

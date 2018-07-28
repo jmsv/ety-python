@@ -9,19 +9,16 @@ from .word import Word
 
 
 class Census(object):
-    def __init__(self, words, lang='eng'):
+    def __init__(self, words, lang="eng"):
         self.words = []
-        self._origins = {
-            'direct': [],
-            'recursive': []
-        }
+        self._origins = {"direct": [], "recursive": []}
 
         if isinstance(words, string_types):
-            words = list(re.split('\s+', words))  # Split words by whitespace
+            words = list(re.split("\s+", words))  # Split words by whitespace
         elif isinstance(words, (list, tuple)):
             words = list(words)
         else:
-            raise ValueError('words argument must be either string or list')
+            raise ValueError("words argument must be either string or list")
 
         for word in list(words):
             if isinstance(word, string_types):
@@ -29,11 +26,14 @@ class Census(object):
             elif isinstance(word, Word):
                 self.words.append(word)
             else:
-                raise ValueError("Invalid word type: '%s'.\ Words must\
-                    be ety.Word objects or strings" % str(type(word)))
+                raise ValueError(
+                    "Invalid word type: '%s'.\ Words must\
+                    be ety.Word objects or strings"
+                    % str(type(word))
+                )
 
     def origins(self, recursive=False):
-        search = 'recursive' if recursive else 'direct'
+        search = "recursive" if recursive else "direct"
 
         o = self._origins[search]
 
