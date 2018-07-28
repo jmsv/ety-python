@@ -1,6 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
+import re
 from codecs import open
 from os import path
 
@@ -11,7 +12,8 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
-from ety import __version__ as version
+with open(path.join(here, 'ety/__init__.py'), encoding='utf8') as f:
+    version = re.search(r'__version__ = "(.*?)"', f.read()).group(1)
 
 setup(
     name="ety",
