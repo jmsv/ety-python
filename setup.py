@@ -1,18 +1,21 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
-from setuptools import setup
 from codecs import open
 from os import path
+
+from setuptools import setup
 
 here = path.abspath(path.dirname(__file__))
 
 with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
+from ety import __version__ as version
+
 setup(
     name="ety",
-    version="1.2.0",
+    version=version,
     description="discover the etymology of words",
     long_description=long_description,
     long_description_content_type="text/markdown",

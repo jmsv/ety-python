@@ -10,6 +10,9 @@ from .tree import EtyTree
 from .word import Word, Language  # noqa: F401
 
 
+__version__ = "1.3.0"
+
+
 def _get_source_word(word, language, color=False):
     if isinstance(word, Word):
         return word

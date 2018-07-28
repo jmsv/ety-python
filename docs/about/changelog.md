@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.0] - 2018/07/28
+
+### Added
+
+- [`black`](https://github.com/ambv/black) code style
+
+### Changed
+
+- `lang` and `word_lang` params changed to `language` for uniformity
+
 ## [1.2.0] - 2018/07/17
 
 ### Added
