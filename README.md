@@ -7,7 +7,6 @@ A Python module to discover the etymology of words :book:
 [![Python versions](https://img.shields.io/pypi/pyversions/ety.svg)](https://pypi.python.org/pypi/ety)
 [![Wheel Support](https://img.shields.io/pypi/wheel/ety.svg)](https://pypi.python.org/pypi/ety)
 [![Documentation Status](https://readthedocs.org/projects/ety-python/badge/?version=latest)](https://ety-python.readthedocs.io/en/latest/?badge=latest)
-[![codecov](https://codecov.io/gh/jmsv/ety-python/branch/master/graph/badge.svg)](https://codecov.io/gh/jmsv/ety-python)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![Downloads](https://img.shields.io/badge/dynamic/json.svg?url=https://pypistats.org/api/packages/ety/recent?mirrors=false&label=downloads&query=$.data.last_month&suffix=/month)](https://pypistats.org/packages/ety)
 
