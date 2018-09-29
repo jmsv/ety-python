@@ -14,7 +14,7 @@ class Census(object):
         self._origins = {"direct": [], "recursive": []}
 
         if isinstance(words, string_types):
-            words = list(re.split("\s+", words))  # Split words by whitespace
+            words = list(re.split(r"\s+", words))  # Split words by whitespace
         elif isinstance(words, (list, tuple)):
             words = list(words)
         else:
@@ -27,8 +27,8 @@ class Census(object):
                 self.words.append(word)
             else:
                 raise ValueError(
-                    "Invalid word type: '%s'.\ Words must\
-                    be ety.Word objects or strings"
+                    "Invalid word type: '%s'. Words must "
+                    "be ety.Word objects or strings"
                     % str(type(word))
                 )
 
