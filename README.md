@@ -3,6 +3,7 @@
 A Python module to discover the etymology of words :book:
 
 [![Build Status](https://travis-ci.org/jmsv/ety-python.svg?branch=master)](https://travis-ci.org/jmsv/ety-python)
+[![codecov](https://codecov.io/gh/jmsv/ety-python/branch/master/graph/badge.svg)](https://codecov.io/gh/jmsv/ety-python)
 [![PyPI version](https://badge.fury.io/py/ety.svg)](https://badge.fury.io/py/ety)
 [![Python versions](https://img.shields.io/pypi/pyversions/ety.svg)](https://pypi.python.org/pypi/ety)
 [![Wheel Support](https://img.shields.io/pypi/wheel/ety.svg)](https://pypi.python.org/pypi/ety)
