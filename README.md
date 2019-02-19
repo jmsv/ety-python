@@ -1,15 +1,16 @@
-# ety-python
+![ety](https://user-images.githubusercontent.com/14852491/52982538-880fbd80-33de-11e9-8101-6fa24c3b697d.png)
 
-A Python module to discover the etymology of words :book:
+<p align="center">
+<a href="https://badge.fury.io/py/ety"><img src="https://badge.fury.io/py/ety.svg" alt="PyPI version"></a>
+<a href="https://pypi.python.org/pypi/ety"><img src="https://img.shields.io/pypi/pyversions/ety.svg" alt="Python versions"></a>
+<a href="https://pypi.python.org/pypi/ety"><img src="https://img.shields.io/pypi/wheel/ety.svg" alt="Wheel Support"></a>
+<a href="https://ety-python.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/ety-python/badge/?version=latest" alt="Documentation Status"></a><br>
+<a href="https://travis-ci.org/jmsv/ety-python"><img src="https://travis-ci.org/jmsv/ety-python.svg?branch=master" alt="Build Status"></a>
+<a href="https://codecov.io/gh/jmsv/ety-python"><img src="https://codecov.io/gh/jmsv/ety-python/branch/master/graph/badge.svg" alt="codecov"></a>
+<a href="https://github.com/ambv/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
+</p>
 
-[![Build Status](https://travis-ci.org/jmsv/ety-python.svg?branch=master)](https://travis-ci.org/jmsv/ety-python)
-[![codecov](https://codecov.io/gh/jmsv/ety-python/branch/master/graph/badge.svg)](https://codecov.io/gh/jmsv/ety-python)
-[![PyPI version](https://badge.fury.io/py/ety.svg)](https://badge.fury.io/py/ety)
-[![Python versions](https://img.shields.io/pypi/pyversions/ety.svg)](https://pypi.python.org/pypi/ety)
-[![Wheel Support](https://img.shields.io/pypi/wheel/ety.svg)](https://pypi.python.org/pypi/ety)
-[![Documentation Status](https://readthedocs.org/projects/ety-python/badge/?version=latest)](https://ety-python.readthedocs.io/en/latest/?badge=latest)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
-[![Downloads](https://img.shields.io/badge/dynamic/json.svg?url=https://pypistats.org/api/packages/ety/recent?mirrors=false&label=downloads&query=$.data.last_month&suffix=/month)](https://pypistats.org/packages/ety)
+---
 
 ## Intro
 
