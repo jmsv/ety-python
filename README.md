@@ -44,10 +44,10 @@ python setup.py install
 >>> ety.origins("potato")
 [Word(batata, language=Taino)]
 
->>> ety.origins('drink', recursive=True)
+>>> ety.origins("drink", recursive=True)
 [Word(drync, language=Old English (ca. 450-1100)), Word(drinken, language=Middle English (1100-1500)), Word(drincan, language=Old English (ca. 450-1100))]
 
->>> print(ety.tree('aerodynamically'))
+>>> print(ety.tree("aerodynamically"))
 aerodynamically (English)
 ├── -ally (English)
 └── aerodynamic (English)
