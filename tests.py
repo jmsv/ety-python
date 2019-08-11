@@ -116,6 +116,11 @@ class TestEty(unittest.TestCase):
     def test_tree_dict(self):
         self.assertIsInstance(ety.tree("potato").__dict__, dict)
 
+    def test_nah_lang_code(self):
+        tree = str(ety.tree("avocado"))
+        self.assertTrue(tree.startswith("avocado (English)\n└── aguacate (Spanish)"))
+        self.assertTrue("Nahuatl languages" in tree)
+
     @stdout_capture
     def test_cli_no_args(self, output):
         words = ["test"]
