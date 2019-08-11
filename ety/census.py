@@ -28,8 +28,7 @@ class Census(object):
             else:
                 raise ValueError(
                     "Invalid word type: '%s'. Words must "
-                    "be ety.Word objects or strings"
-                    % str(type(word))
+                    "be ety.Word objects or strings" % str(type(word))
                 )
 
     def origins(self, recursive=False):

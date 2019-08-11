@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-
 
-from .data import langs
+from .data import iso_639_3_codes, iso_639_2_codes
 
 
 class Language(object):
@@ -9,9 +9,12 @@ class Language(object):
         self.iso = iso
 
         try:
-            self.name = langs[iso]
+            self.name = iso_639_3_codes[iso]
         except KeyError:
-            raise KeyError("Language with iso code '%s' unknown" % iso)
+            try:
+                self.name = iso_639_2_codes[iso]
+            except KeyError:
+                raise KeyError("Language with iso code '%s' unknown" % iso)
 
     def __repr__(self):
         return u"Language(iso={})".format(self.iso)
