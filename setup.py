@@ -12,7 +12,7 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
-with open(path.join(here, 'ety/__init__.py'), encoding='utf8') as f:
+with open(path.join(here, "ety/__init__.py"), encoding="utf8") as f:
     version = re.search(r'__version__ = "(.*?)"', f.read()).group(1)
 
 setup(
@@ -40,7 +40,9 @@ setup(
     packages=["ety", "ety/data"],
     install_requires=["treelib", "colorful", "six"],
     extras_require={"dev": ["flake8"]},
-    package_data={"ety": ["data/etymologies.json", "data/iso-639-3.json"]},
+    package_data={
+        "ety": ["data/etymologies.json", "data/iso-639-3.json", "data/iso-639-2.json"]
+    },
     entry_points={"console_scripts": ["ety=ety:cli"]},
     project_urls={
         "Source": "https://github.com/jmsv/ety-python",

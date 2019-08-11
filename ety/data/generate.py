@@ -31,16 +31,17 @@ def download_dataset(url, dl_path):
     """
     r = requests.get(url, stream=True)
 
-    with open(dl_path, 'wb') as f:
-        total_length = int(r.headers.get('content-length'))
+    with open(dl_path, "wb") as f:
+        total_length = int(r.headers.get("content-length"))
         chunk_size = 4096
         for chunk in progress.bar(
-                r.iter_content(chunk_size=chunk_size),
-                expected_size=(total_length / chunk_size) + 1):
+            r.iter_content(chunk_size=chunk_size),
+            expected_size=(total_length / chunk_size) + 1,
+        ):
             if chunk:
                 f.write(chunk)
                 f.flush()
-    print('Downloaded to ' + dl_path)
+    print("Downloaded to " + dl_path)
 
 
 def verify_local_data(url, dl_path):
@@ -50,14 +51,14 @@ def verify_local_data(url, dl_path):
     :return: True if local file matches, otherwise False
     """
     try:
-        with open(dl_path, 'rb') as f:
+        with open(dl_path, "rb") as f:
             # Local file checksum
             actual = hashlib.md5(f.read()).hexdigest()
     except EnvironmentError:
         # Return False if file doesn't exit
         return False
 
-    expected = requests.get('%s.checksum' % url).text.strip()
+    expected = requests.get("%s.checksum" % url).text.strip()
     return actual == expected
 
 
@@ -67,11 +68,11 @@ def split_elements(compound):
     e.g.: 'rel:etymology' => ['rel', 'etymology']
     :return: Elements as list
     """
-    elements = [e.strip() for e in compound.split(':')]
+    elements = [e.strip() for e in compound.split(":")]
     if len(elements) == 2:
         return elements
 
-    result = [elements[0], ':'.join(elements[1:])]
+    result = [elements[0], ":".join(elements[1:])]
     return result
 
 
@@ -82,14 +83,14 @@ def generate_json(source_path, dir):
     """
     result = {}
 
-    print('Loading source tsv')
-    with io.open(source_path, 'r', newline='', encoding='utf-8') as source:
-        reader = csv.reader(source, delimiter='\t')
+    print("Loading source tsv")
+    with io.open(source_path, "r", newline="", encoding="utf-8") as source:
+        reader = csv.reader(source, delimiter="\t")
         source_rows = list(reader)
 
     gc.collect()
 
-    print('Structuring data')
+    print("Structuring data")
     for row in progress.bar(source_rows):
         source_lang, source_word = split_elements(row[0])
 
@@ -110,8 +111,8 @@ def generate_json(source_path, dir):
     #         f.write(json.dumps(result[key], sort_keys=False))
 
     # Save data
-    print('Writing etymologies file')
-    with io.open(os.path.join(dir, 'etymologies.json'), 'w') as f:
+    print("Writing etymologies file")
+    with io.open(os.path.join(dir, "etymologies.json"), "w") as f:
         json.dump(result, f)
 
 
@@ -120,9 +121,9 @@ def main():
     Define paths, download data if required, generate json dataset
     """
     dir = os.path.dirname(os.path.realpath(__file__))
-    source_dir = os.path.join(dir, 'source')
-    source_path = os.path.join(source_dir, 'etymwn.tsv')
-    source_url = 'https://data.jmsv.me/etymwn-filtered.tsv'
+    source_dir = os.path.join(dir, "source")
+    source_path = os.path.join(source_dir, "etymwn.tsv")
+    source_url = "https://data.jmsv.me/etymwn-filtered.tsv"
 
     # Exit if not Python 3
     if not six.PY3:
@@ -133,22 +134,22 @@ def main():
 
     # (Re)download data if required
     if not verify_local_data(source_url, source_path):
-        print('Downloading source data')
+        print("Downloading source data")
         download_dataset(source_url, source_path)
 
         # If checksum still doesn't match, exit
         if verify_local_data(source_url, source_path):
-            print('Verified local source data')
+            print("Verified local source data")
         else:
-            print('Error verifying local source data, exiting')
+            print("Error verifying local source data, exiting")
             exit(1)
     else:
-        print('Verified local source data')
+        print("Verified local source data")
 
     generate_json(source_path, dir)
 
-    print('Done')
+    print("Done")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

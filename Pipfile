@@ -14,8 +14,11 @@ pylint = "*"
 requests = "*"
 clint = "*"
 pytest = "*"
-codecov = "*"
 black = "==18.6b4"
 
 [requires]
 python_version = "3.6"
+
+[scripts]
+test = "pytest tests.py"
+format = "black ."

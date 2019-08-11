@@ -6,7 +6,6 @@
 <a href="https://pypi.python.org/pypi/ety"><img src="https://img.shields.io/pypi/wheel/ety.svg" alt="Wheel Support"></a>
 <a href="https://ety-python.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/ety-python/badge/?version=latest" alt="Documentation Status"></a><br>
 <a href="https://travis-ci.org/jmsv/ety-python"><img src="https://travis-ci.org/jmsv/ety-python.svg?branch=master" alt="Build Status"></a>
-<a href="https://codecov.io/gh/jmsv/ety-python"><img src="https://codecov.io/gh/jmsv/ety-python/branch/master/graph/badge.svg" alt="codecov"></a>
 <a href="https://github.com/ambv/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
 </p>
 
@@ -44,10 +43,10 @@ python setup.py install
 >>> ety.origins("potato")
 [Word(batata, language=Taino)]
 
->>> ety.origins('drink', recursive=True)
+>>> ety.origins("drink", recursive=True)
 [Word(drync, language=Old English (ca. 450-1100)), Word(drinken, language=Middle English (1100-1500)), Word(drincan, language=Old English (ca. 450-1100))]
 
->>> print(ety.tree('aerodynamically'))
+>>> print(ety.tree("aerodynamically"))
 aerodynamically (English)
 ├── -ally (English)
 └── aerodynamic (English)
