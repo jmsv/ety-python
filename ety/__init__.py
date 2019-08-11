@@ -10,7 +10,7 @@ from .tree import EtyTree
 from .word import Word, Language  # noqa: F401
 
 
-__version__ = "1.3.2"
+__version__ = "1.3.3"
 
 
 def _get_source_word(word, language, color=False):

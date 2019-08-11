@@ -121,6 +121,10 @@ class TestEty(unittest.TestCase):
         self.assertTrue(tree.startswith("avocado (English)\n└── aguacate (Spanish)"))
         self.assertTrue("Nahuatl languages" in tree)
 
+    def test_wintu_code(self):
+        tree = str(ety.tree("Wintun"))
+        self.assertEqual(tree, "Wintun (English)\n└── wintʰu·n (Wintu)")
+
     @stdout_capture
     def test_cli_no_args(self, output):
         words = ["test"]
