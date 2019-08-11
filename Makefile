@@ -15,7 +15,7 @@ clean:
 	rm -f *.pyc */*.pyc
 
 format:
-	black *.py */*.py
+	black .
 
 dist:
 	python3 setup.py sdist bdist_wheel

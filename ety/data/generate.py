@@ -62,18 +62,24 @@ def verify_local_data(url, dl_path):
     return actual == expected
 
 
+def fix_anomalous_lang_code(code):
+    if code == "wit":
+        return "wnw"
+    return code
+
+
 def split_elements(compound):
     """
     Split source tsv elements at colon
     e.g.: 'rel:etymology' => ['rel', 'etymology']
     :return: Elements as list
     """
-    elements = [e.strip() for e in compound.split(":")]
+    elements = [fix_anomalous_lang_code(e.strip()) for e in compound.split(":")]
+
     if len(elements) == 2:
         return elements
 
-    result = [elements[0], ":".join(elements[1:])]
-    return result
+    return [fix_anomalous_lang_code(elements[0]), ":".join(elements[1:])]
 
 
 def generate_json(source_path, dir):
