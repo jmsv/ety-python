@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.2] - 2019/08/11
+
+### Fixed
+
+- Use ISO-639-2 language codes if 639-3 lookup fails
+
 ## [1.3.1] - 2018/07/28
 
 ### Fixed
