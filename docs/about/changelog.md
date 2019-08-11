@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.3] - 2019/08/12
+
+### Fixed
+
+- Replace deprecated Wintu ISO-639 code 'wit' with 'wnw'
+
 ## [1.3.2] - 2019/08/11
 
 ### Fixed
