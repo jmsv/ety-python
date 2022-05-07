@@ -4,8 +4,8 @@ install:
 	python setup.py install
 
 test:
-	python -m pytest tests.py
-	timeout 30s python -c "import tests; tests.test_circular_etymology()"
+	python -m pytest test_ety.py
+	timeout 30s python -c "import test_ety; test_ety.test_circular_etymology()"
 
 data:
 	PYTHONIOENCODING=utf-8 python ety/data/generate.py
