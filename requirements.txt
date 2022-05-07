@@ -1,4 +1,3 @@
-treelib
-colorful
-six
-
+colorful==0.5.4
+six==1.16.0
+treelib==1.6.1
