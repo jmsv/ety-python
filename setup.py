@@ -23,9 +23,9 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/jmsv/ety-python",
     author="James Vickery",
-    author_email="dev@jamesvickery.net",
+    author_email="dev@jmsv.me",
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
