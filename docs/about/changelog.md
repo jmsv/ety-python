@@ -2,9 +2,9 @@
 
 ## [1.4.0] - 2022/07/31
 
-- Support for Python up to 3.10
+- Added support for Python up to 3.10
 - Replace Travis CI with GitHub Actions
-- Minor docs update
+- Minor docs updates
 
 ## [1.3.3] - 2019/08/12
 
