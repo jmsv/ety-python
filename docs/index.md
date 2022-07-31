@@ -10,7 +10,7 @@ A Python module to discover the etymology of words :book:
 
 ## Intro
 
-Recently, [@jmsv](https://github.com/jmsv) and [@parker57](https://github.com/parker57) started a side project to analyse etymologies of text written by various historical authors, expecting there to already be a library for retrieving etymological data. On discovering that this wasn't the case, [ety](https://github.com/jmsv/ety-python) was created!
+[@jmsv](https://github.com/jmsv) and [@parker57](https://github.com/parker57) started a side project to analyse etymologies of text written by various historical authors, expecting there to already be a library for retrieving etymological data. On discovering that this wasn't the case, [ety](https://github.com/jmsv/ety-python) was created!
 
 There isn't a single source of truth for etymologies; words' origins can be heavily disputed. This package's source data, Gerard de Melo's [Etymological Wordnet](http://www1.icsi.berkeley.edu/~demelo/etymwn/), is mostly mined from Wiktionary. Since this is a collaboratively edited dictionary, its data could be seen as the closest we can get to a public consensus.
 
@@ -20,14 +20,6 @@ There isn't a single source of truth for etymologies; words' origins can be heav
 
 ```bash
 pip install ety
-```
-
-### Development
-
-In a virtual environment - [Pipenv](https://docs.pipenv.org) is recommended:
-
-```bash
-python setup.py install
 ```
 
 ## Usage
@@ -81,7 +73,7 @@ drink   # List direct origins
  • drinken (Middle English (1100-1500))
 
 $ ety drink -r   # Recursive search
-drink 
+drink
  • drync (Old English (ca. 450-1100))
  • drinken (Middle English (1100-1500))
  • drincan (Old English (ca. 450-1100))
@@ -91,4 +83,12 @@ drink (English)
 ├── drinken (Middle English (1100-1500))
 │   └── drincan (Old English (ca. 450-1100))
 └── drync (Old English (ca. 450-1100))
+```
+
+## Development
+
+In a virtual environment - [Pipenv](https://docs.pipenv.org) is recommended:
+
+```bash
+python setup.py install
 ```

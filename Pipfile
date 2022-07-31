@@ -17,7 +17,7 @@ pytest = "*"
 black = "==18.6b4"
 
 [requires]
-python_version = "3.6"
+python_version = "3.8"
 
 [scripts]
 test = "pytest tests.py"
